@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gainify AI – Premium African Fitness</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --gold: #D4AF37;
+  --gold2: #F5D76E;
+  --bg: #080808;
+  --glass: rgba(255,255,255,0.04);
+  --border: rgba(212,175,55,0.15);
+  --text: #fff;
+  --muted: #888;
+  --dim: #555;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-thumb{background:rgba(212,175,55,0.3);border-radius:99px;}
+input,select,textarea{outline:none;font-family:'DM Sans',sans-serif;}
+input::placeholder{color:#444;}
+button{cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* BG */
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 15% 15%,rgba(212,175,55,0.07) 0%,transparent 50%),
+             radial-gradient(ellipse at 85% 85%,rgba(212,175,55,0.04) 0%,transparent 50%);}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:200;background:rgba(8,8,8,0.95);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;}
+.logo-wrap{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#D4AF37,#F5D76E);
+  display:flex;align-items:center;justify-content:center;font-size:20px;}
+.logo-text{font-size:20px;font-weight:900;background:linear-gradient(90deg,#D4AF37,#F5D76E);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:0.5px;font-family:'Playfair Display',serif;}
+.logo-sub{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:2px;}
+.user-avatar{width:36px;height:36px;border-radius:99px;background:linear-gradient(135deg,#D4AF37,#F5D76E);
+  display:flex;align-items:center;justify-content:center;font-size:18px;}
+
+/* NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(8,8,8,0.97);
+  backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:8px 2px 16px;display:flex;justify-content:space-around;}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 6px;
+  background:none;border:none;border-top:2px solid transparent;transition:all 0.2s;flex:1;min-width:0;}
+.nav-btn.active{border-top-color:var(--gold);}
+.nav-icon{font-size:20px;}
+.nav-label{font-size:8px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;transition:color 0.2s;}
+.nav-btn.active .nav-label{color:var(--gold);}
+
+/* MAIN */
+.main{max-width:700px;margin:0 auto;padding:24px 16px 130px;position:relative;z-index:1;}
+.section{animation:fadeIn 0.3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* GLASS */
+.glass{background:var(--glass);border:1px solid var(--border);border-radius:16px;backdrop-filter:blur(12px);}
+.glass-sm{background:rgba(255,255,255,0.03);border:1px solid rgba(212,175,55,0.1);border-radius:12px;}
+
+/* TYPOGRAPHY */
+.section-title{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold);margin-bottom:6px;}
+.section-sub{color:var(--muted);font-size:14px;margin-bottom:24px;}
+
+/* GOLD BTN */
+.gold-btn{background:linear-gradient(135deg,#D4AF37 0%,#F5D76E 50%,#D4AF37 100%);color:#000;
+  border:none;border-radius:12px;padding:14px 32px;font-weight:800;font-size:15px;
+  letter-spacing:0.5px;box-shadow:0 4px 20px rgba(212,175,55,0.3);transition:all 0.2s;width:100%;}
+.gold-btn:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(212,175,55,0.4);}
+.gold-btn:disabled{opacity:0.6;}
+
+/* INPUTS */
+.field-label{display:block;font-size:11px;color:var(--gold);margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.input-field{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.2);
+  border-radius:10px;padding:12px 14px;color:#fff;font-size:15px;transition:border-color 0.2s;}
+.input-field:focus{border-color:rgba(212,175,55,0.5);}
+.select-field{width:100%;background:#111;border:1px solid rgba(212,175,55,0.2);
+  border-radius:10px;padding:12px 14px;color:#fff;font-size:14px;}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;}
+@media(max-width:400px){.grid-auto{grid-template-columns:1fr 1fr;}}
+
+/* STAT CARD */
+.stat-card{padding:18px;text-align:center;}
+.stat-val{font-size:26px;font-weight:900;font-family:'Playfair Display',serif;}
+.stat-unit{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.stat-label{font-size:11px;color:#666;margin-top:4px;}
+
+/* PROGRESS BAR */
+.progress-wrap{margin-bottom:12px;}
+.progress-meta{display:flex;justify-content:space-between;margin-bottom:5px;}
+.progress-track{background:rgba(255,255,255,0.08);border-radius:99px;height:6px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:99px;transition:width 0.6s ease;}
+
+/* FOOD CARD */
+.food-card{padding:14px;cursor:pointer;transition:all 0.2s;border:1px solid rgba(212,175,55,0.1);}
+.food-card:hover{border-color:rgba(212,175,55,0.4);background:rgba(212,175,55,0.05);}
+.food-card.selected{border-color:var(--gold);background:rgba(212,175,55,0.07);}
+.food-emoji{font-size:36px;margin-bottom:8px;}
+.food-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:4px;line-height:1.3;}
+.food-cal{font-size:20px;font-weight:900;color:var(--gold);}
+.food-serving{font-size:10px;color:#555;}
+.macro-tag{font-size:10px;border-radius:4px;padding:2px 5px;}
+
+/* TABS */
+.tabs{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:2px;}
+.tab-btn{padding:8px 18px;border-radius:99px;border:1px solid rgba(212,175,55,0.25);
+  background:rgba(255,255,255,0.04);color:#aaa;font-weight:700;font-size:12px;transition:all 0.2s;white-space:nowrap;}
+.tab-btn.active{background:linear-gradient(135deg,#D4AF37,#F5D76E);color:#000;border-color:transparent;}
+.seg-tabs{display:flex;gap:8px;margin-bottom:20px;}
+.seg-btn{flex:1;padding:10px 4px;border-radius:10px;border:1px solid rgba(212,175,55,0.25);
+  background:rgba(255,255,255,0.04);color:#aaa;font-weight:700;font-size:12px;transition:all 0.2s;text-align:center;}
+.seg-btn.active{background:linear-gradient(135deg,#D4AF37,#F5D76E);color:#000;}
+
+/* CHAT */
+.chat-area{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;
+  height:50vh;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;}
+.msg{display:flex;flex-direction:column;max-width:86%;}
+.msg.user{align-self:flex-end;}
+.msg.ai{align-self:flex-start;}
+.bubble{padding:12px 16px;border-radius:18px;font-size:14px;line-height:1.65;white-space:pre-wrap;}
+.bubble.user{background:linear-gradient(135deg,#D4AF37,#F5D76E);color:#000;border-radius:18px 18px 4px 18px;}
+.bubble.ai{background:rgba(255,255,255,0.05);border:1px solid rgba(212,175,55,0.1);color:#ddd;border-radius:18px 18px 18px 4px;}
+.ai-label{font-size:11px;color:var(--gold);font-weight:700;margin-bottom:5px;}
+.chat-input-row{display:flex;gap:10px;margin-top:12px;}
+.chat-input{flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.2);
+  border-radius:12px;padding:13px 16px;color:#fff;font-size:14px;}
+.send-btn{background:linear-gradient(135deg,#D4AF37,#F5D76E);color:#000;border:none;
+  border-radius:12px;padding:13px 20px;font-weight:800;font-size:14px;white-space:nowrap;}
+.typing{display:flex;gap:5px;padding:10px 16px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);
+  animation:bounce 1s infinite;display:inline-block;}
+.dot:nth-child(2){animation-delay:0.2s;}
+.dot:nth-child(3){animation-delay:0.4s;}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
+
+/* QUICK PROMPT */
+.quick-prompts{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.qp-btn{font-size:11px;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2);
+  border-radius:99px;padding:5px 12px;color:var(--gold);transition:all 0.2s;}
+.qp-btn:hover{background:rgba(212,175,55,0.15);}
+
+/* LOG MEAL MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;
+  display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px);}
+.modal-sheet{background:#0f0f0f;border:1px solid var(--border);border-radius:24px 24px 0 0;
+  padding:24px 20px 40px;width:100%;max-width:700px;animation:slideUp 0.3s ease;max-height:92vh;overflow-y:auto;}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-handle{width:40px;height:4px;background:#333;border-radius:99px;margin:0 auto 20px;}
+.modal-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);margin-bottom:16px;}
+.close-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);
+  border-radius:99px;color:#fff;padding:6px 14px;font-size:13px;float:right;margin-top:-4px;}
+
+/* BADGE */
+.badge{display:inline-block;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;}
+
+/* SUPP CARD */
+.supp-card{padding:20px;margin-bottom:14px;}
+.supp-icon-wrap{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+
+/* WORKOUT CARD */
+.workout-card{padding:18px;margin-bottom:12px;}
+.workout-card .meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0;}
+.meta-cell{padding:10px;text-align:center;background:rgba(255,255,255,0.03);border:1px solid rgba(212,175,55,0.08);border-radius:10px;}
+.meta-val{font-size:15px;font-weight:800;color:var(--gold);}
+.meta-key{font-size:10px;color:#555;}
+
+/* RESULT BOX */
+.result-highlight{background:rgba(212,175,55,0.06);border:1px solid rgba(212,175,55,0.2);border-radius:12px;padding:16px;}
+.result-big{font-size:64px;font-weight:900;font-family:'Playfair Display',serif;line-height:1;}
+
+/* FILTERS */
+.cat-filters{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:20px;}
+.cat-btn{padding:5px 12px;border-radius:99px;border:1px solid rgba(212,175,55,0.15);
+  background:transparent;color:#555;font-size:11px;font-weight:600;transition:all 0.2s;white-space:nowrap;}
+.cat-btn.active{background:rgba(212,175,55,0.12);color:var(--gold);border-color:rgba(212,175,55,0.3);}
+
+/* HIDDEN */
+.hidden{display:none!important;}
+
+/* TOAST */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,#D4AF37,#F5D76E);color:#000;
+  padding:10px 22px;border-radius:99px;font-weight:700;font-size:13px;
+  z-index:999;animation:toastAnim 2.5s ease forwards;}
+@keyframes toastAnim{0%{opacity:0;transform:translateX(-50%) translateY(10px)}15%{opacity:1;transform:translateX(-50%) translateY(0)}80%{opacity:1}100%{opacity:0}}
+
+/* SEARCH */
+.search-bar{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.2);
+  border-radius:12px;padding:13px 16px;color:#fff;font-size:14px;margin-bottom:16px;}
+
+/* WEEK SCHEDULE */
+.week-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);align-items:center;}
+.week-day{font-size:13px;font-weight:700;color:#fff;min-width:85px;}
+.week-focus{font-size:12px;color:var(--muted);}
+
+/* TIPS */
+.tip-box{background:rgba(212,175,55,0.05);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:12px 14px;margin-top:12px;font-size:13px;color:#ccc;line-height:1.65;}
+
+/* LOG FOOD SEARCH */
+.food-search-result{padding:12px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;transition:background 0.15s;}
+.food-search-result:hover{background:rgba(212,175,55,0.07);}
+
+/* PROGRESS PHOTOS */
+.photo-placeholder{background:rgba(255,255,255,0.03);border:2px dashed rgba(212,175,55,0.2);
+  border-radius:14px;padding:32px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.photo-placeholder:hover{border-color:rgba(212,175,55,0.5);background:rgba(212,175,55,0.04);}
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo-wrap">
+    <div class="logo-icon">💪</div>
+    <div>
+      <div class="logo-text">GAINIFY AI</div>
+      <div class="logo-sub">Premium Fitness</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <button onclick="showModal('water-modal')" style="background:rgba(69,183,209,0.1);border:1px solid rgba(69,183,209,0.3);border-radius:99px;padding:6px 12px;color:#45B7D1;font-size:12px;font-weight:700;">💧 Log Water</button>
+    <div class="user-avatar">👑</div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- ── DASHBOARD ── -->
+  <section id="sec-dashboard" class="section">
+    <h2 class="section-title">Welcome, Champion 👑</h2>
+    <p class="section-sub" id="dash-date">Loading date...</p>
+
+    <div class="grid-4" style="margin-bottom:20px;">
+      <div class="glass stat-card">
+        <div style="font-size:22px;margin-bottom:6px;">🔥</div>
+        <div class="stat-val" style="color:var(--gold);" id="d-cal">0</div>
+        <div class="stat-unit">kcal</div>
+        <div class="stat-label">Calories</div>
+      </div>
+      <div class="glass stat-card">
+        <div style="font-size:22px;margin-bottom:6px;">💪</div>
+        <div class="stat-val" style="color:#FF6B35;" id="d-prot">0g</div>
+        <div class="stat-unit">protein</div>
+        <div class="stat-label">Today</div>
+      </div>
+      <div class="glass stat-card">
+        <div style="font-size:22px;margin-bottom:6px;">💧</div>
+        <div class="stat-val" style="color:#45B7D1;" id="d-water">0L</div>
+        <div class="stat-unit">water</div>
+        <div class="stat-label">Intake</div>
+      </div>
+      <div class="glass stat-card">
+        <div style="font-size:22px;margin-bottom:6px;">🏋️</div>
+        <div class="stat-val" style="color:#96CEB4;">5</div>
+        <div class="stat-unit">days</div>
+        <div class="stat-label">Streak</div>
+      </div>
+    </div>
+
+    <div class="glass" style="padding:20px;margin-bottom:16px;">
+      <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:14px;">📊 Daily Progress</div>
+      <div id="dash-bars"></div>
+    </div>
+
+    <div class="glass" style="padding:20px;margin-bottom:16px;">
+      <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:12px;">🍽️ Today's Meals</div>
+      <div id="meal-log-list">
+        <div style="text-align:center;color:#555;padding:24px;font-size:13px;">No meals logged yet.<br/>Tap "Log Meal" to start! 🥗</div>
+      </div>
+      <button class="gold-btn" style="margin-top:14px;" onclick="showModal('log-meal-modal')">+ Log Meal</button>
+    </div>
+
+    <div class="glass" style="padding:20px;margin-bottom:16px;">
+      <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:12px;">🎯 Daily Goals</div>
+      <div id="goals-list"></div>
+    </div>
+
+    <div class="glass" style="padding:20px;">
+      <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:12px;">⚡ Quick Actions</div>
+      <div class="grid-2">
+        <div class="glass-sm" style="padding:16px;text-align:center;cursor:pointer;" onclick="showModal('log-meal-modal')">
+          <div style="font-size:28px;margin-bottom:6px;">🍽️</div>
+          <div style="font-size:12px;color:var(--gold);font-weight:700;">Log Meal</div>
+        </div>
+        <div class="glass-sm" style="padding:16px;text-align:center;cursor:pointer;" onclick="goTo('sec-workouts')">
+          <div style="font-size:28px;margin-bottom:6px;">🏋️</div>
+          <div style="font-size:12px;color:var(--gold);font-weight:700;">Start Workout</div>
+        </div>
+        <div class="glass-sm" style="padding:16px;text-align:center;cursor:pointer;" onclick="showModal('weight-modal')">
+          <div style="font-size:28px;margin-bottom:6px;">📈</div>
+          <div style="font-size:12px;color:var(--gold);font-weight:700;">Track Weight</div>
+        </div>
+        <div class="glass-sm" style="padding:16px;text-align:center;cursor:pointer;" onclick="goTo('sec-ai')">
+          <div style="font-size:28px;margin-bottom:6px;">🤖</div>
+          <div style="font-size:12px;color:var(--gold);font-weight:700;">Ask AI Trainer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BMI ── -->
+  <section id="sec-bmi" class="section hidden">
+    <h2 class="section-title">BMI Calculator</h2>
+    <p class="section-sub">Know your body, build your plan</p>
+
+    <div class="glass" style="padding:24px;margin-bottom:20px;">
+      <div class="grid-2" style="margin-bottom:14px;">
+        <div>
+          <label class="field-label">Weight (kg)</label>
+          <input class="input-field" type="number" id="bmi-weight" placeholder="e.g. 65"/>
+        </div>
+        <div>
+          <label class="field-label">Height (cm)</label>
+          <input class="input-field" type="number" id="bmi-height" placeholder="e.g. 175"/>
+        </div>
+        <div>
+          <label class="field-label">Age</label>
+          <input class="input-field" type="number" id="bmi-age" placeholder="e.g. 22"/>
+        </div>
+        <div>
+          <label class="field-label">Gender</label>
+          <select class="select-field" id="bmi-gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+      </div>
+      <button class="gold-btn" onclick="calcBMI()">Calculate BMI 📊</button>
+    </div>
+
+    <div id="bmi-result" class="hidden">
+      <div class="glass" style="padding:24px;margin-bottom:16px;">
+        <div style="text-align:center;margin-bottom:20px;">
+          <div class="result-big" id="bmi-score" style="color:var(--gold);">—</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">BMI Score</div>
+          <div id="bmi-badge" style="display:inline-block;border-radius:99px;padding:6px 20px;margin-top:10px;font-size:13px;font-weight:700;"></div>
+        </div>
+        <div class="grid-2" style="margin-bottom:16px;">
+          <div class="glass-sm" style="padding:14px;text-align:center;">
+            <div style="font-size:16px;font-weight:700;color:var(--gold);" id="bmi-ideal">—</div>
+            <div style="font-size:11px;color:#888;">Ideal Weight (kg)</div>
+          </div>
+          <div class="glass-sm" style="padding:14px;text-align:center;">
+            <div style="font-size:16px;font-weight:700;color:#4ECDC4;" id="bmi-togain">—</div>
+            <div style="font-size:11px;color:#888;">To Gain</div>
+          </div>
+        </div>
+        <div class="result-highlight">
+          <div style="font-size:11px;color:var(--gold);font-weight:700;margin-bottom:8px;">💡 AI ADVICE</div>
+          <p style="font-size:13px;color:#ddd;line-height:1.7;margin:0;" id="bmi-advice"></p>
+        </div>
+      </div>
+
+      <div class="glass" style="padding:20px;">
+        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:12px;">📊 BMI Categories</div>
+        <div style="display:flex;height:10px;border-radius:99px;overflow:hidden;margin-bottom:12px;">
+          <div style="flex:1;background:#FF4757;"></div>
+          <div style="flex:1.5;background:#2ed573;"></div>
+          <div style="flex:1;background:#ffa502;"></div>
+          <div style="flex:1;background:#FF6B35;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:#666;">
+          <span>Underweight<br/>&lt;18.5</span>
+          <span style="text-align:center;">Normal<br/>18.5–24.9</span>
+          <span style="text-align:right;">Overweight<br/>25–29.9</span>
+          <span style="text-align:right;">Obese<br/>&gt;30</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CALORIES ── -->
+  <section id="sec-calories" class="section hidden">
+    <h2 class="section-title">Calorie Calculator</h2>
+    <p class="section-sub">Precision nutrition for maximum gains</p>
+
+    <div class="glass" style="padding:24px;margin-bottom:20px;">
+      <div class="grid-2" style="margin-bottom:14px;">
+        <div>
+          <label class="field-label">Weight (kg)</label>
+          <input class="input-field" type="number" id="cal-weight" placeholder="70"/>
+        </div>
+        <div>
+          <label class="field-label">Height (cm)</label>
+          <input class="input-field" type="number" id="cal-height" placeholder="175"/>
+        </div>
+        <div>
+          <label class="field-label">Age</label>
+          <input class="input-field" type="number" id="cal-age" placeholder="25"/>
+        </div>
+        <div>
+          <label class="field-label">Gender</label>
+          <select class="select-field" id="cal-gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:14px;">
+        <label class="field-label">Activity Level</label>
+        <select class="select-field" id="cal-activity">
+          <option value="1.2">Sedentary (desk job, no exercise)</option>
+          <option value="1.375">Light (1–2 workouts/week)</option>
+          <option value="1.55" selected>Moderate (3–5 workouts/week)</option>
+          <option value="1.725">Active (6–7 workouts/week)</option>
+          <option value="1.9">Very Active (2x/day training)</option>
+        </select>
+      </div>
+      <button class="gold-btn" onclick="calcCalories()">Calculate My Calories 🔥</button>
+    </div>
+
+    <div id="cal-result" class="hidden">
+      <div class="glass" style="padding:20px;margin-bottom:14px;">
+        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:14px;">📊 Your Calorie Targets</div>
+        <div id="cal-targets"></div>
+      </div>
+      <div class="glass" style="padding:20px;margin-bottom:14px;">
+        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:14px;">🥩 Daily Macros (Muscle Build)</div>
+        <div class="grid-3" id="cal-macros"></div>
+      </div>
+      <div class="glass" style="padding:20px;">
+        <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:12px;">💡 Bulking Meal Timing</div>
+        <div id="meal-timing"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOODS ── -->
+  <section id="sec-foods" class="section hidden">
+    <h2 class="section-title">Food Database</h2>
+    <p class="section-sub">African & International nutrition library</p>
+
+    <input class="search-bar" type="text" placeholder="🔍  Search foods..." oninput="filterFoods(this.value)"/>
+
+    <div class="tabs" id="food-tabs">
+      <button class="tab-btn active" onclick="setFoodTab('all',this)">🌍 All</button>
+      <button class="tab-btn" onclick="setFoodTab('somali',this)">🇸🇴 Somali</button>
+      <button class="tab-btn" onclick="setFoodTab('kenyan',this)">🇰🇪 Kenyan</button>
+      <button class="tab-btn" onclick="setFoodTab('international',this)">🌐 International</button>
+    </div>
+
+    <div class="cat-filters" id="cat-filters"></div>
+
+    <div class="grid-auto" id="food-grid"></div>
+
+    <div id="food-detail" class="glass hidden" style="margin-top:16px;padding:22px;"></div>
+  </section>
+
+  <!-- ── SUPPLEMENTS ── -->
+  <section id="sec-supplements" class="section hidden">
+    <h2 class="section-title">Supplements</h2>
+    <p class="section-sub">Science-backed muscle & weight gain supplements</p>
+    <div id="supp-list"></div>
+  </section>
+
+  <!-- ── WORKOUTS ── -->
+  <section id="sec-workouts" class="section hidden">
+    <h2 class="section-title">Workout Programs</h2>
+    <p class="section-sub">Push/Pull/Legs split for serious muscle gain</p>
+
+    <div class="seg-tabs">
+      <button class="seg-btn active" onclick="setWorkoutTab('Push',this)">Push</button>
+      <button class="seg-btn" onclick="setWorkoutTab('Pull',this)">Pull</button>
+      <button class="seg-btn" onclick="setWorkoutTab('Legs',this)">Legs</button>
+      <button class="seg-btn" onclick="setWorkoutTab('All',this)">All</button>
+    </div>
+
+    <div id="workout-list"></div>
+
+    <div class="glass" style="padding:20px;margin-top:20px;">
+      <div style="font-size:14px;font-weight:700;color:var(--gold);margin-bottom:14px;">📅 Weekly Split</div>
+      <div id="week-schedule"></div>
+    </div>
+  </section>
+
+  <!-- ── MEAL PLANNER ── -->
+  <section id="sec-meals" class="section hidden">
+    <h2 class="section-title">AI Meal Planner</h2>
+    <p class="section-sub">Personalised muscle-building meal plans powered by AI</p>
+
+    <div class="glass" style="padding:20px;margin-bottom:20px;">
+      <div style="margin-bottom:14px;">
+        <label class="field-label">Food Preference</label>
+        <div class="seg-tabs" style="margin-bottom:0;">
+          <button class="seg-btn active" onclick="setMealPref('somali',this)">🇸🇴 Somali</button>
+          <button class="seg-btn" onclick="setMealPref('kenyan',this)">🇰🇪 Kenyan</button>
+          <button class="seg-btn" onclick="setMealPref('international',this)">🌐 Intl</button>
+          <button class="seg-btn" onclick="setMealPref('mixed',this)">🌍 Mixed</button>
+        </div>
+      </div>
+      <div style="margin-bottom:14px;">
+        <label class="field-label">Target Calories</label>
+        <select class="select-field" id="meal-target">
+          <option value="2500">2500 kcal (Lean Bulk)</option>
+          <option value="3000" selected>3000 kcal (Muscle Build)</option>
+          <option value="3500">3500 kcal (Aggressive Bulk)</option>
+          <option value="4000">4000 kcal (Hardgainer)</option>
+        </select>
+      </div>
+      <button class="gold-btn" onclick="generateMealPlan()">🍽️ Generate My Meal Plan</button>
+    </div>
+
+    <div id="meal-plan-result"></div>
+  </section>
+
+  <!-- ── AI TRAINER ── -->
+  <section id="sec-ai" class="section hidden">
+    <h2 class="section-title">AI Personal Trainer</h2>
+    <p class="section-sub">Powered by Claude · African Fitness Expert 🤖</p>
+
+    <div class="quick-prompts">
+      <button class="qp-btn" onclick="qp('Give me a Somali muscle-gain meal plan')">🇸🇴 Somali meal plan</button>
+      <button class="qp-btn" onclick="qp('Best Kenyan bulking breakfast?')">🇰🇪 Kenyan breakfast</button>
+      <button class="qp-btn" onclick="qp('How much protein do I need daily?')">💪 Protein needs</button>
+      <button class="qp-btn" onclick="qp('Create a beginner gym program')">🏋️ Gym program</button>
+      <button class="qp-btn" onclick="qp('Best supplements for hardgainers?')">💊 Supplements</button>
+      <button class="qp-btn" onclick="qp('Tips to gain weight fast as a skinny guy')">⚡ Gain weight fast</button>
+    </div>
+
+    <div class="chat-area" id="chat-area">
+      <div class="msg ai">
+        <div class="ai-label">🤖 Gainify AI</div>
+        <div class="bubble ai">Habari! I'm your AI Personal Trainer 💪🔥
+
+I specialise in African & international nutrition for muscle gain. I know Somali and Kenyan foods deeply, plus gym programming, supplements, and calorie strategies.
+
+Ask me anything — workouts, meals, macros, or motivation! Let's build that body! 🇸🇴🇰🇪🌍</div>
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" type="text" id="chat-input" placeholder="Ask about meals, workouts, supplements..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+      <button class="send-btn" onclick="sendMsg()" id="send-btn">Send ➤</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="goTo('sec-dashboard',this)">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">Home</span>
+  </button>
+  <button class="nav-btn" onclick="goTo('sec-bmi',this)">
+    <span class="nav-icon">📊</span>
+    <span class="nav-label">BMI</span>
+  </button>
+  <button class="nav-btn" onclick="goTo('sec-calories',this)">
+    <span class="nav-icon">🔥</span>
+    <span class="nav-label">Calories</span>
+  </button>
+  <button class="nav-btn" onclick="goTo('sec-foods',this)">
+    <span class="nav-icon">🍽️</span>
+    <span class="nav-label">Foods</span>
+  </button>
+  <button class="nav-btn" onclick="goTo('sec-supplements',this)">
+    <span class="nav-icon">💊</span>
+    <span class="nav-label">Supps</span>
+  </button>
+  <button class="nav-btn" onclick="goTo('sec-workouts',this)">
+    <span class="nav-icon">🏋️</span>
+    <span class="nav-label">Train</span>
+  </button>
+  <button class="nav-btn" onclick="goTo('sec-meals',this)">
+    <span class="nav-icon">📅</span>
+    <span class="nav-label">Meals</span>
+  </button>
+  <button class="nav-btn" onclick="goTo('sec-ai',this)">
+    <span class="nav-icon">🤖</span>
+    <span class="nav-label">AI Coach</span>
+  </button>
+</nav>
+
+<!-- ── MODALS ── -->
+
+<!-- LOG MEAL MODAL -->
+<div id="log-meal-modal" class="modal-overlay hidden" onclick="if(event.target===this)hideModal('log-meal-modal')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div class="modal-title">Log a Meal 🍽️</div>
+      <button class="close-btn" onclick="hideModal('log-meal-modal')">✕ Close</button>
+    </div>
+    <input class="search-bar" type="text" placeholder="🔍  Search food to log..." oninput="searchLogFood(this.value)" id="log-search"/>
+    <div id="log-search-results" style="max-height:220px;overflow-y:auto;border:1px solid rgba(212,175,55,0.15);border-radius:12px;margin-bottom:16px;"></div>
+    <div id="log-selected-food" class="hidden glass-sm" style="padding:14px;margin-bottom:14px;">
+      <div style="font-size:13px;color:var(--gold);font-weight:700;margin-bottom:8px;" id="log-food-name">—</div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div>
+          <label class="field-label">Servings</label>
+          <input class="input-field" type="number" id="log-servings" value="1" step="0.5" min="0.5" style="width:100px;"/>
+        </div>
+        <div id="log-food-macros" style="font-size:12px;color:#888;"></div>
+      </div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <label class="field-label">Meal Category</label>
+      <select class="select-field" id="log-meal-cat">
+        <option value="Breakfast">🌅 Breakfast</option>
+        <option value="Lunch">☀️ Lunch</option>
+        <option value="Dinner">🌙 Dinner</option>
+        <option value="Snack">🍎 Snack</option>
+        <option value="Pre-Workout">⚡ Pre-Workout</option>
+        <option value="Post-Workout">💪 Post-Workout</option>
+      </select>
+    </div>
+    <button class="gold-btn" onclick="logMeal()">✅ Log This Meal</button>
+  </div>
+</div>
+
+<!-- WEIGHT MODAL -->
+<div id="weight-modal" class="modal-overlay hidden" onclick="if(event.target===this)hideModal('weight-modal')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div class="modal-title">Track Weight 📈</div>
+      <button class="close-btn" onclick="hideModal('weight-modal')">✕ Close</button>
+    </div>
+    <div style="margin-bottom:14px;">
+      <label class="field-label">Today's Weight (kg)</label>
+      <input class="input-field" type="number" id="weight-input" placeholder="e.g. 68.5" step="0.1"/>
+    </div>
+    <div style="margin-bottom:20px;">
+      <label class="field-label">Notes (optional)</label>
+      <input class="input-field" type="text" id="weight-notes" placeholder="e.g. Post-morning, before food"/>
+    </div>
+    <button class="gold-btn" onclick="logWeight()">Save Weight ✅</button>
+    <div id="weight-history" style="margin-top:20px;"></div>
+  </div>
+</div>
+
+<!-- WATER MODAL -->
+<div id="water-modal" class="modal-overlay hidden" onclick="if(event.target===this)hideModal('water-modal')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div class="modal-title">Log Water 💧</div>
+      <button class="close-btn" onclick="hideModal('water-modal')">✕ Close</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;">
+      <button class="glass" style="padding:14px;text-align:center;border:none;cursor:pointer;" onclick="addWater(250)"><div style="font-size:24px;">🥛</div><div style="font-size:12px;color:var(--gold);font-weight:700;margin-top:6px;">250ml</div></button>
+      <button class="glass" style="padding:14px;text-align:center;border:none;cursor:pointer;" onclick="addWater(330)"><div style="font-size:24px;">🧴</div><div style="font-size:12px;color:var(--gold);font-weight:700;margin-top:6px;">330ml</div></button>
+      <button class="glass" style="padding:14px;text-align:center;border:none;cursor:pointer;" onclick="addWater(500)"><div style="font-size:24px;">🍶</div><div style="font-size:12px;color:var(--gold);font-weight:700;margin-top:6px;">500ml</div></button>
+      <button class="glass" style="padding:14px;text-align:center;border:none;cursor:pointer;" onclick="addWater(750)"><div style="font-size:24px;">🏺</div><div style="font-size:12px;color:var(--gold);font-weight:700;margin-top:6px;">750ml</div></button>
+    </div>
+    <div class="glass-sm" style="padding:16px;text-align:center;margin-bottom:16px;">
+      <div style="font-size:36px;font-weight:900;color:#45B7D1;" id="water-display">0 ml</div>
+      <div style="font-size:12px;color:#888;">of 3000ml daily goal</div>
+      <div style="background:rgba(255,255,255,0.08);border-radius:99px;height:8px;margin-top:10px;overflow:hidden;">
+        <div id="water-bar" style="height:100%;background:linear-gradient(90deg,#45B7D1,#7dd3e8);border-radius:99px;width:0%;transition:width 0.5s;"></div>
+      </div>
+    </div>
+    <button class="gold-btn" onclick="hideModal('water-modal')">Done 💧</button>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────
+const ALL_FOODS = [
+  // SOMALI
+  {id:'s1',name:'Bariis (Somali Rice)',emoji:'🍚',cat:'somali',cal:350,protein:7,carbs:75,fat:2,fiber:1,serving:'1 cup (200g)',benefit:'High-energy staple, excellent carb base for bulking',vitamins:'B1, B3',minerals:'Iron, Magnesium',category:'Grains'},
+  {id:'s2',name:'Baasto (Somali Pasta)',emoji:'🍝',cat:'somali',cal:380,protein:14,carbs:72,fat:3,fiber:2,serving:'1 bowl (250g)',benefit:'Complex carbs + protein combo, perfect post-workout',vitamins:'B2, B12',minerals:'Zinc, Calcium',category:'Grains'},
+  {id:'s3',name:'Canjeero',emoji:'🥞',cat:'somali',cal:180,protein:6,carbs:35,fat:2,fiber:3,serving:'2 pieces (120g)',benefit:'Fermented grain – probiotic rich, good for muscle recovery',vitamins:'B6, C',minerals:'Iron, Potassium',category:'Bread'},
+  {id:'s4',name:'Malawax',emoji:'🫓',cat:'somali',cal:290,protein:8,carbs:48,fat:7,fiber:1,serving:'2 pieces (150g)',benefit:'Calorie-dense crepe, ideal for morning bulking meals',vitamins:'A, D',minerals:'Calcium, Phosphorus',category:'Bread'},
+  {id:'s5',name:'Sabaayad',emoji:'🫓',cat:'somali',cal:320,protein:9,carbs:52,fat:8,fiber:2,serving:'2 pieces (160g)',benefit:'Layered flatbread high in energy, great with protein sides',vitamins:'B1, E',minerals:'Iron, Magnesium',category:'Bread'},
+  {id:'s6',name:'Hilib Ari (Goat Meat)',emoji:'🥩',cat:'somali',cal:245,protein:38,carbs:0,fat:10,fiber:0,serving:'200g',benefit:'Lean high-quality protein, excellent for muscle building',vitamins:'B12, B6',minerals:'Zinc, Iron',category:'Protein'},
+  {id:'s7',name:'Suqaar (Beef Stir-fry)',emoji:'🥩',cat:'somali',cal:280,protein:35,carbs:5,fat:12,fiber:1,serving:'200g',benefit:'Complete protein source, rich in muscle-building amino acids',vitamins:'B12, A',minerals:'Iron, Zinc',category:'Protein'},
+  {id:'s8',name:'Muufo (Corn Bread)',emoji:'🌽',cat:'somali',cal:310,protein:8,carbs:60,fat:5,fiber:4,serving:'2 pieces (200g)',benefit:'Calorie-dense corn bread, sustains energy for long workouts',vitamins:'A, B3',minerals:'Magnesium, Phosphorus',category:'Bread'},
+  {id:'s9',name:'Cambuulo',emoji:'🫘',cat:'somali',cal:220,protein:15,carbs:38,fat:2,fiber:12,serving:'1 cup (180g)',benefit:'Adzuki beans – high protein & fiber, muscle repair food',vitamins:'B9, B1',minerals:'Iron, Potassium',category:'Legumes'},
+  {id:'s10',name:'Oodkac (Dried Beef)',emoji:'🥩',cat:'somali',cal:290,protein:42,carbs:3,fat:11,fiber:0,serving:'150g',benefit:'Concentrated protein snack, perfect between meals for gains',vitamins:'B12, B6',minerals:'Zinc, Iron',category:'Protein'},
+  {id:'s11',name:'Beer iyo Bariis',emoji:'🍖',cat:'somali',cal:420,protein:30,carbs:55,fat:8,fiber:2,serving:'1 plate',benefit:'Balanced macro meal – carbs + protein for muscle growth',vitamins:'B12, D',minerals:'Calcium, Iron',category:'Meals'},
+  {id:'s12',name:'Shaah Somali (Tea)',emoji:'🍵',cat:'somali',cal:120,protein:3,carbs:18,fat:4,fiber:0,serving:'1 cup (240ml)',benefit:'Cardamom spices boost metabolism, aids digestion',vitamins:'C',minerals:'Calcium, Potassium',category:'Drinks'},
+  {id:'s13',name:'Timir (Dates)',emoji:'🌴',cat:'somali',cal:280,protein:2,carbs:72,fat:0,fiber:7,serving:'10 dates (100g)',benefit:'Natural sugar bomb, instant energy before workouts',vitamins:'B6, K',minerals:'Potassium, Magnesium',category:'Fruits'},
+  {id:'s14',name:'Camel Milk',emoji:'🥛',cat:'somali',cal:120,protein:6,carbs:11,fat:5,fiber:0,serving:'1 cup (240ml)',benefit:'High in insulin-like proteins, aids muscle recovery',vitamins:'C, B2',minerals:'Calcium, Iron',category:'Dairy'},
+  // KENYAN
+  {id:'k1',name:'Ugali',emoji:'🍽️',cat:'kenyan',cal:360,protein:8,carbs:78,fat:1,fiber:3,serving:'2 cups (300g)',benefit:'Maize staple, excellent energy carb, foundation of any bulking diet',vitamins:'B3, B1',minerals:'Iron, Magnesium',category:'Grains'},
+  {id:'k2',name:'Nyama Choma (Grilled Meat)',emoji:'🍖',cat:'kenyan',cal:320,protein:45,carbs:0,fat:14,fiber:0,serving:'250g',benefit:'Premium grilled protein, ideal for muscle synthesis after gym',vitamins:'B12, B6',minerals:'Zinc, Iron',category:'Protein'},
+  {id:'k3',name:'Sukuma Wiki (Kale)',emoji:'🥬',cat:'kenyan',cal:45,protein:4,carbs:7,fat:0.5,fiber:5,serving:'1 cup cooked',benefit:'Super greens – micronutrients for recovery, immune support',vitamins:'A, C, K',minerals:'Calcium, Iron',category:'Vegetables'},
+  {id:'k4',name:'Chapati',emoji:'🫓',cat:'kenyan',cal:280,protein:8,carbs:50,fat:6,fiber:2,serving:'2 pieces (160g)',benefit:'Calorie-dense flatbread, perfect carb loading before workouts',vitamins:'B1, B3',minerals:'Iron, Zinc',category:'Bread'},
+  {id:'k5',name:'Githeri (Maize & Beans)',emoji:'🫘',cat:'kenyan',cal:250,protein:14,carbs:45,fat:2,fiber:10,serving:'1 bowl (200g)',benefit:'Complete protein combo, high fiber for sustained energy',vitamins:'B9, C',minerals:'Iron, Potassium',category:'Legumes'},
+  {id:'k6',name:'Mukimo (Mashed Potatoes)',emoji:'🥔',cat:'kenyan',cal:290,protein:7,carbs:60,fat:2,fiber:5,serving:'1 bowl (250g)',benefit:'Potassium-rich, muscle-friendly comfort food',vitamins:'C, B6',minerals:'Potassium, Magnesium',category:'Vegetables'},
+  {id:'k7',name:'Mandazi',emoji:'🍩',cat:'kenyan',cal:250,protein:5,carbs:42,fat:8,fiber:1,serving:'3 pieces (150g)',benefit:'Sweet fried dough – great calorie boost for underweight gains',vitamins:'B1, E',minerals:'Iron, Calcium',category:'Snacks'},
+  {id:'k8',name:'Pilau',emoji:'🍛',cat:'kenyan',cal:380,protein:18,carbs:58,fat:9,fiber:3,serving:'1 plate (300g)',benefit:'Spiced rice + meat, complete macro meal for bulkers',vitamins:'B12, B6',minerals:'Iron, Zinc',category:'Meals'},
+  {id:'k9',name:'Tilapia (Samaki)',emoji:'🐟',cat:'kenyan',cal:200,protein:42,carbs:0,fat:4,fiber:0,serving:'200g',benefit:'Lean white fish, high protein, omega-3 for joint health',vitamins:'D, B12',minerals:'Phosphorus, Selenium',category:'Protein'},
+  {id:'k10',name:'Matoke (Plantain)',emoji:'🍌',cat:'kenyan',cal:220,protein:2,carbs:54,fat:0.3,fiber:4,serving:'1 cup (200g)',benefit:'High-carb plantain, natural energy source for athletes',vitamins:'C, B6',minerals:'Potassium, Magnesium',category:'Vegetables'},
+  {id:'k11',name:'Omena (Dried Fish)',emoji:'🐟',cat:'kenyan',cal:190,protein:35,carbs:1,fat:5,fiber:0,serving:'100g',benefit:'Concentrated omega-3 & protein, Kenyan superfood for muscles',vitamins:'D, B12',minerals:'Calcium, Phosphorus',category:'Protein'},
+  {id:'k12',name:'Arrowroots (Nduma)',emoji:'🌿',cat:'kenyan',cal:160,protein:3,carbs:38,fat:0.2,fiber:4,serving:'200g',benefit:'Complex carb, easy digestion, great between-meal snack',vitamins:'B6, C',minerals:'Potassium, Magnesium',category:'Vegetables'},
+  {id:'k13',name:'Beans (Maharage)',emoji:'🫘',cat:'kenyan',cal:240,protein:16,carbs:42,fat:1,fiber:15,serving:'1 cup (170g)',benefit:'Plant protein powerhouse, slow-release carbs for sustained gains',vitamins:'B9, B1',minerals:'Iron, Zinc',category:'Legumes'},
+  {id:'k14',name:'Cassava (Muhogo)',emoji:'🍠',cat:'kenyan',cal:330,protein:3,carbs:80,fat:0.3,fiber:4,serving:'200g',benefit:'Ultra-high carb, calorie-dense for hard gainers',vitamins:'C, B6',minerals:'Potassium, Magnesium',category:'Grains'},
+  // INTERNATIONAL
+  {id:'i1',name:'Whole Eggs',emoji:'🥚',cat:'international',cal:210,protein:18,carbs:1,fat:15,fiber:0,serving:'3 large eggs',benefit:'Complete protein, anabolic hormone support, biotin for metabolism',vitamins:'A, D, B12',minerals:'Zinc, Phosphorus',category:'Protein'},
+  {id:'i2',name:'Chicken Breast',emoji:'🍗',cat:'international',cal:220,protein:46,carbs:0,fat:5,fiber:0,serving:'200g',benefit:'Gold standard lean protein, mTOR activator for muscle growth',vitamins:'B6, B3',minerals:'Phosphorus, Selenium',category:'Protein'},
+  {id:'i3',name:'Lean Beef',emoji:'🥩',cat:'international',cal:280,protein:40,carbs:0,fat:12,fiber:0,serving:'200g',benefit:'Creatine + protein combo, superior muscle-building food',vitamins:'B12, B6',minerals:'Iron, Zinc',category:'Protein'},
+  {id:'i4',name:'Tuna (Canned)',emoji:'🐟',cat:'international',cal:150,protein:34,carbs:0,fat:1.5,fiber:0,serving:'1 can (150g)',benefit:'Ultra-lean protein, omega-3 for inflammation control',vitamins:'D, B12',minerals:'Selenium, Phosphorus',category:'Protein'},
+  {id:'i5',name:'Salmon',emoji:'🍣',cat:'international',cal:290,protein:40,carbs:0,fat:14,fiber:0,serving:'200g',benefit:'Omega-3 + protein = muscle synthesis + recovery',vitamins:'D, B12, E',minerals:'Selenium, Potassium',category:'Protein'},
+  {id:'i6',name:'Oatmeal',emoji:'🥣',cat:'international',cal:300,protein:10,carbs:54,fat:5,fiber:8,serving:'1 cup dry (80g)',benefit:'Beta-glucan fiber, slow-release carbs, perfect breakfast',vitamins:'B1, B5',minerals:'Magnesium, Iron',category:'Grains'},
+  {id:'i7',name:'Peanut Butter',emoji:'🥜',cat:'international',cal:380,protein:16,carbs:14,fat:32,fiber:4,serving:'4 tbsp (64g)',benefit:'Calorie-dense, healthy fat + protein, easy extra 380 calories',vitamins:'E, B3',minerals:'Magnesium, Phosphorus',category:'Fats'},
+  {id:'i8',name:'Avocado',emoji:'🥑',cat:'international',cal:240,protein:3,carbs:13,fat:22,fiber:10,serving:'1 medium (150g)',benefit:'Monounsaturated fats boost testosterone, anti-inflammatory',vitamins:'K, E, C',minerals:'Potassium, Magnesium',category:'Fats'},
+  {id:'i9',name:'Banana',emoji:'🍌',cat:'international',cal:105,protein:1.3,carbs:27,fat:0.4,fiber:3,serving:'1 large (120g)',benefit:'Natural sugar + potassium, best pre-workout snack',vitamins:'B6, C',minerals:'Potassium, Magnesium',category:'Fruits'},
+  {id:'i10',name:'Whole Milk',emoji:'🥛',cat:'international',cal:280,protein:14,carbs:22,fat:14,fiber:0,serving:'2 cups (480ml)',benefit:'GOMAD approved – calories + calcium + protein',vitamins:'D, A, B12',minerals:'Calcium, Phosphorus',category:'Dairy'},
+  {id:'i11',name:'Greek Yogurt',emoji:'🫙',cat:'international',cal:190,protein:20,carbs:9,fat:5,fiber:0,serving:'1 cup (225g)',benefit:'Casein protein, slow-digesting, perfect before sleep',vitamins:'B12, B2',minerals:'Calcium, Phosphorus',category:'Dairy'},
+  {id:'i12',name:'Brown Rice',emoji:'🍚',cat:'international',cal:340,protein:7,carbs:72,fat:2,fiber:4,serving:'1 cup cooked (200g)',benefit:'Complex carbs, steady insulin, clean bulk essential',vitamins:'B1, B3',minerals:'Magnesium, Phosphorus',category:'Grains'},
+  {id:'i13',name:'Sweet Potatoes',emoji:'🍠',cat:'international',cal:180,protein:4,carbs:41,fat:0.2,fiber:6,serving:'1 large (200g)',benefit:'Beta-carotene + carbs, ideal post-workout glycogen refill',vitamins:'A, C, B6',minerals:'Potassium, Magnesium',category:'Vegetables'},
+  {id:'i14',name:'Protein Shake (Whey)',emoji:'🥤',cat:'international',cal:250,protein:50,carbs:8,fat:4,fiber:1,serving:'2 scoops + milk',benefit:'Fast-acting whey, hits muscles within 30min post-workout',vitamins:'B12, D',minerals:'Calcium, Phosphorus',category:'Supplements'},
+  {id:'i15',name:'Mass Gainer Shake',emoji:'🧃',cat:'international',cal:1200,protein:50,carbs:220,fat:15,fiber:5,serving:'3 scoops (300g) + milk',benefit:'Ultimate hardgainer tool – 1200+ calories in one shake',vitamins:'B complex, D',minerals:'Calcium, Zinc',category:'Supplements'},
+];
+
+const SUPPLEMENTS = [
+  {name:'Whey Protein',emoji:'💪',color:'#D4AF37',cal:120,protein:25,benefit:'Fast muscle recovery & growth',usage:'Post-workout or morning',serving:'1–2 scoops (30–60g)',timing:'Within 30 min after workout',note:'Mix with milk for extra calories'},
+  {name:'Mass Gainer',emoji:'⚡',color:'#FF6B35',cal:1200,protein:50,benefit:'Rapid weight gain for hardgainers',usage:'Meal replacement',serving:'2–4 scoops (150–300g)',timing:'Between meals or post-workout',note:'Best for underweight users needing 500+ kcal surplus'},
+  {name:'Creatine Monohydrate',emoji:'🔥',color:'#4ECDC4',cal:0,protein:0,benefit:'Increased strength & muscle volume',usage:'Daily',serving:'5g/day',timing:'Anytime – consistency matters',note:'Loading phase: 20g/day for 5 days, then 5g/day'},
+  {name:'Omega-3 Fish Oil',emoji:'🐟',color:'#45B7D1',cal:30,protein:0,benefit:'Reduces inflammation, supports joints',usage:'Daily with food',serving:'2–3 capsules (1–3g EPA+DHA)',timing:'With meals',note:'Essential for athletes with heavy training volume'},
+  {name:'Multivitamins',emoji:'💊',color:'#96CEB4',cal:0,protein:0,benefit:'Fills micronutrient gaps',usage:'Daily with breakfast',serving:'1 tablet',timing:'Morning with food',note:'Critical for those with limited food variety'},
+  {name:'Pre-Workout',emoji:'⚡',color:'#FF4757',cal:15,protein:2,benefit:'Energy, focus & pump for training',usage:'Pre-training only',serving:'1 scoop (10–15g)',timing:'20–30 min before workout',note:'Contains caffeine – avoid after 4pm for sleep'},
+];
+
+const WORKOUTS = [
+  {name:'Push-ups',emoji:'💪',sets:4,reps:'12–15',muscle:'Chest, Triceps, Shoulders',level:'Beginner',calories:80,instruction:'Keep body straight, lower chest to floor, push back up explosively. Control the descent.',type:'Push'},
+  {name:'Bench Press',emoji:'🏋️',sets:4,reps:'8–10',muscle:'Chest, Triceps',level:'Intermediate',calories:120,instruction:'Lie flat, grip bar slightly wider than shoulder-width. Lower to chest, press up powerfully.',type:'Push'},
+  {name:'Overhead Press',emoji:'🏋️',sets:3,reps:'10–12',muscle:'Shoulders, Triceps',level:'Intermediate',calories:100,instruction:'Press barbell from shoulder height overhead until arms fully locked. Keep core tight.',type:'Push'},
+  {name:'Dips',emoji:'🔽',sets:3,reps:'10–15',muscle:'Chest, Triceps',level:'Intermediate',calories:90,instruction:'Lower body between bars until elbows at 90°. Drive up to lock out. Lean forward for chest.',type:'Push'},
+  {name:'Pull-ups',emoji:'🔝',sets:4,reps:'8–12',muscle:'Back, Biceps',level:'Intermediate',calories:100,instruction:'Hang from bar, pull chest to bar, squeeze lats at top. Lower slowly with control. Use bands if needed.',type:'Pull'},
+  {name:'Barbell Rows',emoji:'🏋️',sets:4,reps:'10–12',muscle:'Back, Biceps',level:'Intermediate',calories:110,instruction:'Hinge at hip, pull bar to lower chest. Squeeze back hard at top. Keep lower back flat.',type:'Pull'},
+  {name:'Bicep Curls',emoji:'💪',sets:3,reps:'12–15',muscle:'Biceps',level:'Beginner',calories:60,instruction:'Keep elbows fixed at sides. Curl weight up, squeeze at top. Lower slowly – 3 seconds down.',type:'Pull'},
+  {name:'Face Pulls',emoji:'🎯',sets:3,reps:'15–20',muscle:'Rear Delts, Rotator Cuff',level:'Beginner',calories:50,instruction:'Pull rope to face level, flaring elbows out. Essential for shoulder health and posture.',type:'Pull'},
+  {name:'Squats',emoji:'🦵',sets:4,reps:'10–12',muscle:'Quads, Glutes, Hamstrings',level:'Beginner',calories:150,instruction:'Feet shoulder-width, bar on traps. Squat until thighs parallel to floor. Drive through heels.',type:'Legs'},
+  {name:'Deadlifts',emoji:'🏋️',sets:3,reps:'6–8',muscle:'Full Posterior Chain',level:'Advanced',calories:200,instruction:'Bar over mid-foot, hinge and grip. Keep back flat, drive hips forward to stand. King of exercises.',type:'Legs'},
+  {name:'Lunges',emoji:'🦵',sets:3,reps:'12 each leg',muscle:'Quads, Glutes',level:'Beginner',calories:90,instruction:'Step forward, lower back knee toward floor. Push through front heel to return.',type:'Legs'},
+  {name:'Romanian Deadlifts',emoji:'🏋️',sets:3,reps:'10–12',muscle:'Hamstrings, Glutes',level:'Intermediate',calories:120,instruction:'Hinge at hips while pushing them back. Feel the hamstring stretch at bottom, squeeze glutes to stand.',type:'Legs'},
+];
+
+const WEEK_SCHEDULE = [
+  {day:'Monday',focus:'Push – Chest, Shoulders, Triceps',icon:'💪'},
+  {day:'Tuesday',focus:'Pull – Back, Biceps, Rear Delts',icon:'🔝'},
+  {day:'Wednesday',focus:'Legs – Quads, Glutes, Hamstrings',icon:'🦵'},
+  {day:'Thursday',focus:'Rest & Recovery + Nutrition Focus',icon:'😴'},
+  {day:'Friday',focus:'Push – Heavy Compound Focus',icon:'🏋️'},
+  {day:'Saturday',focus:'Pull – Volume & Isolation Work',icon:'🔝'},
+  {day:'Sunday',focus:'Active Recovery / Light Legs / Cardio',icon:'🚶'},
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────
+let state = {
+  calories: 0, protein: 0, carbs: 0, fats: 0,
+  water: 0, // ml
+  targetCal: 3000, targetProtein: 180,
+  mealLog: [],
+  weightLog: JSON.parse(localStorage.getItem('gainify_weight') || '[]'),
+  currentFoodTab: 'all', currentCat: 'All',
+  selectedLogFood: null, mealPref: 'somali',
+  currentWorkoutTab: 'Push',
+};
+
+// ─── INIT ────────────────────────────────────────────────────────────────
+window.onload = () => {
+  document.getElementById('dash-date').textContent =
+    new Date().toLocaleDateString('en-KE', {weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  renderDashboard();
+  renderFoods();
+  renderSupplements();
+  renderWorkouts();
+  renderCatFilters();
+  renderWeightHistory();
+};
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────
+function goTo(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else {
+    const map = {'sec-dashboard':0,'sec-bmi':1,'sec-calories':2,'sec-foods':3,'sec-supplements':4,'sec-workouts':5,'sec-meals':6,'sec-ai':7};
+    const idx = map[id];
+    if (idx !== undefined) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  }
+  window.scrollTo(0, 0);
+}
+
+// ─── MODALS ──────────────────────────────────────────────────────────────
+function showModal(id) { document.getElementById(id).classList.remove('hidden'); }
+function hideModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+// ─── DASHBOARD ───────────────────────────────────────────────────────────
+function renderDashboard() {
+  document.getElementById('d-cal').textContent = state.calories;
+  document.getElementById('d-prot').textContent = state.protein + 'g';
+  document.getElementById('d-water').textContent = (state.water / 1000).toFixed(1) + 'L';
+
+  const bars = [
+    {label:'Calories',val:state.calories,max:state.targetCal,color:'#D4AF37'},
+    {label:'Protein',val:state.protein,max:state.targetProtein,color:'#FF6B35'},
+    {label:'Carbs',val:state.carbs,max:350,color:'#4ECDC4'},
+    {label:'Fats',val:state.fats,max:90,color:'#96CEB4'},
+    {label:'Water (ml)',val:state.water,max:3000,color:'#45B7D1'},
+  ];
+  document.getElementById('dash-bars').innerHTML = bars.map(b => `
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span style="font-size:13px;color:#ccc;">${b.label}</span>
+        <span style="font-size:12px;color:${b.color};">${b.val}/${b.max}</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width:${Math.min(100,(b.val/b.max)*100)}%;background:linear-gradient(90deg,${b.color},${b.color}88);"></div>
+      </div>
+    </div>`).join('');
+
+  const goals = [
+    {done: state.mealLog.length >= 3, text: 'Eat 3 high-protein meals'},
+    {done: state.calories >= state.targetCal * 0.8, text: `Hit ${state.targetCal} calorie target`},
+    {done: state.protein >= state.targetProtein * 0.8, text: `Eat ${state.targetProtein}g protein`},
+    {done: state.water >= 2500, text: 'Drink 3L water'},
+    {done: false, text: 'Take daily supplements'},
+  ];
+  document.getElementById('goals-list').innerHTML = goals.map(g => `
+    <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+      <span style="font-size:18px;">${g.done ? '✅' : '⬜'}</span>
+      <span style="font-size:13px;color:${g.done ? '#D4AF37' : '#aaa'};text-decoration:${g.done ? 'line-through' : 'none'};">${g.text}</span>
+    </div>`).join('');
+
+  const list = document.getElementById('meal-log-list');
+  if (state.mealLog.length === 0) {
+    list.innerHTML = '<div style="text-align:center;color:#555;padding:24px;font-size:13px;">No meals logged yet.<br/>Tap "Log Meal" to start! 🥗</div>';
+  } else {
+    list.innerHTML = state.mealLog.map((m,i) => `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:22px;">${m.emoji}</span>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#fff;">${m.name}</div>
+            <div style="font-size:11px;color:#666;">${m.cat} · ${m.servings} serving${m.servings > 1 ? 's' : ''}</div>
+          </div>
+        </div>
+        <div style="text-align:right;display:flex;align-items:center;gap:12px;">
+          <div>
+            <div style="font-size:14px;font-weight:800;color:#D4AF37;">${Math.round(m.cal * m.servings)} kcal</div>
+            <div style="font-size:11px;color:#FF6B35;">${Math.round(m.protein * m.servings)}g protein</div>
+          </div>
+          <button onclick="removeMeal(${i})" style="background:rgba(255,71,87,0.1);border:1px solid rgba(255,71,87,0.2);border-radius:6px;color:#FF4757;font-size:11px;padding:4px 8px;">✕</button>
+        </div>
+      </div>`).join('');
+  }
+}
+
+function removeMeal(i) {
+  const m = state.mealLog[i];
+  state.calories -= Math.round(m.cal * m.servings);
+  state.protein -= Math.round(m.protein * m.servings);
+  state.carbs -= Math.round(m.carbs * m.servings);
+  state.fats -= Math.round(m.fat * m.servings);
+  state.mealLog.splice(i, 1);
+  renderDashboard();
+  toast('Meal removed');
+}
+
+// ─── BMI ─────────────────────────────────────────────────────────────────
+function calcBMI() {
+  const w = parseFloat(document.getElementById('bmi-weight').value);
+  const h = parseFloat(document.getElementById('bmi-height').value) / 100;
+  const a = parseFloat(document.getElementById('bmi-age').value) || 25;
+  if (!w || !h) { toast('Please enter weight & height'); return; }
+  const bmi = (w / (h * h));
+  let cat, color, advice;
+  if (bmi < 18.5) {
+    cat = 'Underweight'; color = '#FF4757';
+    advice = 'You need a calorie surplus of 500–750 kcal/day. Focus on calorie-dense foods: peanut butter, avocado, Ugali + Nyama Choma, Bariis + Hilib Ari, and consider a mass gainer shake. Train with weights 3–4x/week to ensure the gained weight is muscle.';
+  } else if (bmi < 25) {
+    cat = 'Normal Weight'; color = '#2ed573';
+    advice = 'Great baseline! To build muscle, maintain a lean bulk with a 200–300 kcal surplus. Prioritise protein at every meal (eggs, chicken, fish). Use Gainify\'s AI meal planner to get a customised plan.';
+  } else if (bmi < 30) {
+    cat = 'Overweight'; color = '#ffa502';
+    advice = 'Focus on body recomposition: maintain current calories but increase protein to 2.2g/kg bodyweight. Start resistance training 4x/week. Favour high-protein Kenyan/Somali dishes like Tilapia, Omena, Hilib Ari.';
+  } else {
+    cat = 'Obese'; color = '#FF6B35';
+    advice = 'Eat at a 300–400 kcal deficit with 40% protein diet. Do cardio + weights 4–5x/week. Prioritise lean proteins and vegetables. Please consult a healthcare professional before starting.';
+  }
+  const ideal = { min: (18.5 * h * h).toFixed(1), max: (24.9 * h * h).toFixed(1) };
+  const toGain = Math.max(0, ideal.min - w).toFixed(1);
+
+  document.getElementById('bmi-score').textContent = bmi.toFixed(1);
+  document.getElementById('bmi-score').style.color = color;
+  const badge = document.getElementById('bmi-badge');
+  badge.textContent = cat;
+  badge.style.background = color + '22';
+  badge.style.border = `1px solid ${color}`;
+  badge.style.color = color;
+  document.getElementById('bmi-ideal').textContent = `${ideal.min} – ${ideal.max}`;
+  document.getElementById('bmi-togain').textContent = toGain > 0 ? `+${toGain} kg` : '✓ In range';
+  document.getElementById('bmi-advice').textContent = advice;
+  document.getElementById('bmi-result').classList.remove('hidden');
+}
+
+// ─── CALORIES ────────────────────────────────────────────────────────────
+function calcCalories() {
+  const w = parseFloat(document.getElementById('cal-weight').value);
+  const h = parseFloat(document.getElementById('cal-height').value);
+  const a = parseFloat(document.getElementById('cal-age').value) || 25;
+  const g = document.getElementById('cal-gender').value;
+  const mult = parseFloat(document.getElementById('cal-activity').value);
+  if (!w || !h) { toast('Please enter weight & height'); return; }
+  const bmr = g === 'male'
+    ? 88.36 + (13.4 * w) + (4.8 * h) - (5.7 * a)
+    : 447.6 + (9.2 * w) + (3.1 * h) - (4.3 * a);
+  const tdee = Math.round(bmr * mult);
+  const muscle = tdee + 400;
+  const targets = [
+    {label:'Basal Metabolic Rate (BMR)', val: Math.round(bmr), note:'Calories burned at complete rest', star:false},
+    {label:'Maintenance (TDEE)', val: tdee, note:'Stay the same weight', star:false},
+    {label:'Lean Muscle Gain (+200)', val: tdee+200, note:'Slow, minimal fat gain', star:false},
+    {label:'Muscle Build (+400) ⭐', val: muscle, note:'Recommended for gains', star:true},
+    {label:'Aggressive Bulk (+600)', val: tdee+600, note:'Fast gain, more fat possible', star:false},
+  ];
+  document.getElementById('cal-targets').innerHTML = targets.map(t => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+      <div>
+        <div style="font-size:13px;color:${t.star ? '#D4AF37' : '#ddd'};">${t.label}</div>
+        <div style="font-size:11px;color:#555;">${t.note}</div>
+      </div>
+      <div style="font-size:18px;font-weight:800;color:${t.star ? '#D4AF37' : '#fff'};">${t.val}</div>
+    </div>`).join('');
+
+  const prot = Math.round(w * 2.2);
+  const carbs = Math.round(muscle * 0.45 / 4);
+  const fat = Math.round(muscle * 0.25 / 9);
+  document.getElementById('cal-macros').innerHTML = [
+    {label:'Protein',val:prot+'g',pct:'30%',color:'#FF6B35'},
+    {label:'Carbs',val:carbs+'g',pct:'45%',color:'#4ECDC4'},
+    {label:'Fats',val:fat+'g',pct:'25%',color:'#D4AF37'},
+  ].map(m => `
+    <div class="glass-sm" style="padding:14px;text-align:center;">
+      <div style="font-size:20px;font-weight:900;color:${m.color};">${m.val}</div>
+      <div style="font-size:11px;color:#888;">${m.label}</div>
+      <div style="font-size:10px;color:#555;">${m.pct}</div>
+    </div>`).join('');
+
+  const timing = [
+    {t:'7:00 AM',meal:'Breakfast – High carb + protein (Oats + Eggs / Canjeero + Eggs)'},
+    {t:'10:00 AM',meal:'Morning Snack – Banana + Peanut Butter / Timir (Dates)'},
+    {t:'1:00 PM',meal:'Lunch – Largest meal: Ugali + Nyama Choma / Bariis + Hilib Ari'},
+    {t:'4:00 PM',meal:'Pre-Workout – Chapati + Banana / Sabaayad'},
+    {t:'6:00 PM',meal:'Post-Workout – Whey Protein Shake + Fruit'},
+    {t:'8:00 PM',meal:'Dinner – Pilau / Baasto + Suqaar (high protein)'},
+    {t:'10:00 PM',meal:'Before Bed – Greek Yogurt / Camel Milk (casein protein)'},
+  ];
+  document.getElementById('meal-timing').innerHTML = timing.map(t => `
+    <div style="display:flex;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+      <div style="font-size:12px;color:#D4AF37;font-weight:700;min-width:60px;">${t.t}</div>
+      <div style="font-size:12px;color:#aaa;">${t.meal}</div>
+    </div>`).join('');
+
+  state.targetCal = muscle;
+  state.targetProtein = prot;
+  document.getElementById('cal-result').classList.remove('hidden');
+  renderDashboard();
+}
+
+// ─── FOODS ───────────────────────────────────────────────────────────────
+function renderCatFilters() {
+  const cats = ['All','Protein','Grains','Vegetables','Legumes','Bread','Dairy','Fruits','Fats','Snacks','Meals','Drinks','Supplements'];
+  document.getElementById('cat-filters').innerHTML = cats.map(c => `
+    <button class="cat-btn ${c === 'All' ? 'active' : ''}" onclick="setCat('${c}',this)">${c}</button>`).join('');
+}
+
+function setCat(c, btn) {
+  state.currentCat = c;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFoods();
+}
+
+function setFoodTab(tab, btn) {
+  state.currentFoodTab = tab;
+  document.querySelectorAll('#food-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFoods();
+}
+
+let foodSearch = '';
+function filterFoods(q) { foodSearch = q; renderFoods(); }
+
+function renderFoods() {
+  const filtered = ALL_FOODS.filter(f => {
+    const tabOk = state.currentFoodTab === 'all' || f.cat === state.currentFoodTab;
+    const catOk = state.currentCat === 'All' || f.category === state.currentCat;
+    const srchOk = f.name.toLowerCase().includes(foodSearch.toLowerCase());
+    return tabOk && catOk && srchOk;
+  });
+  document.getElementById('food-grid').innerHTML = filtered.map(f => `
+    <div class="glass food-card" onclick="selectFood('${f.id}')" id="fc-${f.id}">
+      <div class="food-emoji">${f.emoji}</div>
+      <div class="food-name">${f.name}</div>
+      <div class="food-cal">${f.cal}</div>
+      <div class="food-serving">${f.serving}</div>
+      <div style="display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;">
+        <span class="macro-tag" style="background:rgba(255,107,53,0.2);color:#FF6B35;">P:${f.protein}g</span>
+        <span class="macro-tag" style="background:rgba(78,205,196,0.2);color:#4ECDC4;">C:${f.carbs}g</span>
+        <span class="macro-tag" style="background:rgba(212,175,55,0.2);color:#D4AF37;">F:${f.fat}g</span>
+      </div>
+    </div>`).join('') || '<div style="text-align:center;color:#555;padding:40px;font-size:14px;">No foods found 🔍</div>';
+}
+
+function selectFood(id) {
+  const f = ALL_FOODS.find(x => x.id === id);
+  if (!f) return;
+  document.querySelectorAll('.food-card').forEach(c => c.classList.remove('selected'));
+  const card = document.getElementById('fc-' + id);
+  const detail = document.getElementById('food-detail');
+  if (detail.dataset.current === id) {
+    detail.classList.add('hidden');
+    detail.dataset.current = '';
+    card && card.classList.remove('selected');
+    return;
+  }
+  if (card) card.classList.add('selected');
+  detail.dataset.current = id;
+  detail.classList.remove('hidden');
+  detail.innerHTML = `
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+      <span style="font-size:52px;">${f.emoji}</span>
+      <div>
+        <h3 style="color:#D4AF37;font-size:18px;margin-bottom:4px;">${f.name}</h3>
+        <span style="font-size:12px;color:#888;">Per serving: ${f.serving}</span>
+      </div>
+    </div>
+    <div class="grid-4" style="margin-bottom:16px;">
+      <div class="glass-sm" style="padding:10px;text-align:center;"><div style="font-size:16px;font-weight:800;color:#D4AF37;">${f.cal}</div><div style="font-size:10px;color:#666;">kcal</div></div>
+      <div class="glass-sm" style="padding:10px;text-align:center;"><div style="font-size:16px;font-weight:800;color:#FF6B35;">${f.protein}g</div><div style="font-size:10px;color:#666;">Protein</div></div>
+      <div class="glass-sm" style="padding:10px;text-align:center;"><div style="font-size:16px;font-weight:800;color:#4ECDC4;">${f.carbs}g</div><div style="font-size:10px;color:#666;">Carbs</div></div>
+      <div class="glass-sm" style="padding:10px;text-align:center;"><div style="font-size:16px;font-weight:800;color:#96CEB4;">${f.fat}g</div><div style="font-size:10px;color:#666;">Fats</div></div>
+    </div>
+    <div class="result-highlight" style="margin-bottom:12px;">
+      <div style="font-size:11px;color:#D4AF37;font-weight:700;margin-bottom:6px;">💪 MUSCLE GAIN BENEFITS</div>
+      <p style="font-size:13px;color:#ddd;line-height:1.65;margin:0;">${f.benefit}</p>
+    </div>
+    <div style="font-size:12px;color:#888;margin-bottom:10px;">
+      <strong style="color:#D4AF37;">Vitamins:</strong> ${f.vitamins} &nbsp;·&nbsp; <strong style="color:#D4AF37;">Minerals:</strong> ${f.minerals}
+      &nbsp;·&nbsp; <strong style="color:#D4AF37;">Fiber:</strong> ${f.fiber}g
+    </div>
+    <button class="gold-btn" onclick="logFoodDirect('${f.id}')">+ Add to Today's Log</button>`;
+  detail.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function logFoodDirect(id) {
+  const f = ALL_FOODS.find(x => x.id === id);
+  state.mealLog.push({...f, servings:1, cat:'Snack'});
+  state.calories += f.cal; state.protein += f.protein;
+  state.carbs += f.carbs; state.fats += f.fat;
+  toast(`${f.name} logged! 🍽️`);
+}
+
+// ─── SUPPLEMENTS ─────────────────────────────────────────────────────────
+function renderSupplements() {
+  document.getElementById('supp-list').innerHTML = SUPPLEMENTS.map(s => `
+    <div class="glass supp-card">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+        <div class="supp-icon-wrap" style="background:${s.color}22;border:1px solid ${s.color}44;">${s.emoji}</div>
+        <div style="flex:1;">
+          <h3 style="color:#fff;font-size:17px;margin-bottom:3px;">${s.name}</h3>
+          <p style="color:${s.color};font-size:12px;font-weight:700;margin:0;">${s.benefit}</p>
+        </div>
+        ${s.protein > 0 ? `<div style="text-align:right;"><div style="font-size:18px;font-weight:900;color:#D4AF37;">${s.protein}g</div><div style="font-size:10px;color:#666;">protein</div></div>` : ''}
+      </div>
+      <div class="grid-2">
+        <div class="glass-sm" style="padding:10px 12px;">
+          <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">Daily Serving</div>
+          <div style="font-size:12px;color:#ddd;">${s.serving}</div>
+        </div>
+        <div class="glass-sm" style="padding:10px 12px;">
+          <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">Best Timing</div>
+          <div style="font-size:12px;color:#ddd;">${s.timing}</div>
+        </div>
+      </div>
+      ${s.note ? `<div style="margin-top:12px;font-size:12px;color:#888;background:rgba(255,255,255,0.02);border-radius:8px;padding:10px 12px;border-left:2px solid ${s.color};">📝 ${s.note}</div>` : ''}
+    </div>`).join('');
+}
+
+// ─── WORKOUTS ────────────────────────────────────────────────────────────
+function setWorkoutTab(tab, btn) {
+  state.currentWorkoutTab = tab;
+  document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderWorkouts();
+}
+
+function renderWorkouts() {
+  const list = state.currentWorkoutTab === 'All'
+    ? WORKOUTS
+    : WORKOUTS.filter(w => w.type === state.currentWorkoutTab);
+  document.getElementById('workout-list').innerHTML = list.map(w => `
+    <div class="glass workout-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:26px;">${w.emoji}</span>
+          <div>
+            <h3 style="color:#fff;font-size:16px;margin-bottom:2px;">${w.name}</h3>
+            <span style="font-size:11px;color:#D4AF37;">${w.muscle}</span>
+          </div>
+        </div>
+        <span class="badge" style="background:${w.level==='Beginner'?'rgba(46,213,115,0.15)':w.level==='Advanced'?'rgba(255,71,87,0.15)':'rgba(212,175,55,0.15)'};color:${w.level==='Beginner'?'#2ed573':w.level==='Advanced'?'#FF4757':'#D4AF37'};">${w.level}</span>
+      </div>
+      <div class="meta-grid">
+        <div class="meta-cell"><div class="meta-val">${w.sets}</div><div class="meta-key">Sets</div></div>
+        <div class="meta-cell"><div class="meta-val" style="font-size:13px;">${w.reps}</div><div class="meta-key">Reps</div></div>
+        <div class="meta-cell"><div class="meta-val">~${w.calories}</div><div class="meta-key">Kcal</div></div>
+      </div>
+      <div style="font-size:13px;color:#aaa;line-height:1.65;">📋 ${w.instruction}</div>
+      <button onclick="logWorkout('${w.name}','${w.calories}')" style="margin-top:12px;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.25);border-radius:8px;color:#D4AF37;font-size:12px;font-weight:700;padding:8px 16px;">✅ Log This Exercise</button>
+    </div>`).join('');
+
+  document.getElementById('week-schedule').innerHTML = WEEK_SCHEDULE.map(d => `
+    <div class="week-row">
+      <span style="font-size:20px;">${d.icon}</span>
+      <div>
+        <div class="week-day">${d.day}</div>
+        <div class="week-focus">${d.focus}</div>
+      </div>
+    </div>`).join('');
+}
+
+function logWorkout(name, cal) {
+  toast(`${name} logged! +${cal} kcal burned 🔥`);
+}
+
+// ─── MEAL PLANNER ────────────────────────────────────────────────────────
+function setMealPref(pref, btn) {
+  state.mealPref = pref;
+  document.querySelectorAll('#sec-meals .seg-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+async function generateMealPlan() {
+  const target = document.getElementById('meal-target').value;
+  const el = document.getElementById('meal-plan-result');
+  el.innerHTML = `<div style="text-align:center;padding:40px;color:#D4AF37;font-size:15px;">⏳ Generating your personalised meal plan...</div>`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1200,
+        system:`You are a Gainify AI African nutrition coach. Create detailed muscle-building meal plans using ${state.mealPref} foods with a focus on African foods (Somali/Kenyan) where relevant. Always return valid JSON only, no markdown backticks, no extra text.`,
+        messages:[{role:'user', content:`Create a ${state.mealPref} muscle-building meal plan for one day targeting ${target} calories. Include Breakfast, Morning Snack, Lunch, Afternoon Snack, and Dinner. Return ONLY this exact JSON structure with no other text:
+{"totalCals":NUMBER,"totalProtein":NUMBER,"meals":[{"name":"Breakfast","emoji":"🌅","time":"7:00 AM","foods":["food1","food2","food3"],"calories":NUMBER,"protein":NUMBER,"carbs":NUMBER,"tip":"short prep tip"}]}`}]
+      })
+    });
+    const data = await res.json();
+    let text = data.content?.[0]?.text || '{}';
+    text = text.replace(/```json|```/g,'').trim();
+    const plan = JSON.parse(text);
+
+    el.innerHTML = `
+      <div class="glass" style="padding:16px;margin-bottom:16px;text-align:center;">
+        <div style="font-size:36px;font-weight:900;color:#D4AF37;font-family:'Playfair Display',serif;">${plan.totalCals}</div>
+        <div style="font-size:12px;color:#888;">Total Daily Calories</div>
+        <div style="font-size:14px;color:#FF6B35;margin-top:4px;">💪 ${plan.totalProtein}g protein</div>
+      </div>
+      ${(plan.meals || []).map(m => `
+        <div class="glass" style="padding:18px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-size:30px;">${m.emoji}</span>
+              <div>
+                <div style="font-size:15px;font-weight:700;color:#fff;">${m.name}</div>
+                <div style="font-size:11px;color:#888;">${m.time}</div>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:16px;font-weight:800;color:#D4AF37;">${m.calories} kcal</div>
+              <div style="font-size:11px;color:#FF6B35;">${m.protein}g protein</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
+            ${(m.foods || []).map(f => `<span style="font-size:12px;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.2);border-radius:8px;padding:4px 10px;color:#D4AF37;">${f}</span>`).join('')}
+          </div>
+          ${m.tip ? `<div style="font-size:12px;color:#888;border-left:2px solid #D4AF37;padding-left:10px;">💡 ${m.tip}</div>` : ''}
+        </div>`).join('')}`;
+  } catch(e) {
+    el.innerHTML = `<div class="result-highlight"><p style="color:#FF4757;margin:0;">⚠️ Could not connect to AI. Please check your internet and try again.</p></div>`;
+  }
+}
+
+// ─── LOG MEAL ────────────────────────────────────────────────────────────
+function searchLogFood(q) {
+  const res = document.getElementById('log-search-results');
+  if (!q.trim()) { res.innerHTML = ''; return; }
+  const found = ALL_FOODS.filter(f => f.name.toLowerCase().includes(q.toLowerCase())).slice(0, 8);
+  res.innerHTML = found.length
+    ? found.map(f => `
+        <div class="food-search-result" onclick="selectLogFood('${f.id}')">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:22px;">${f.emoji}</span>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#fff;">${f.name}</div>
+              <div style="font-size:11px;color:#888;">${f.serving}</div>
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:13px;font-weight:700;color:#D4AF37;">${f.cal} kcal</div>
+            <div style="font-size:11px;color:#FF6B35;">${f.protein}g P</div>
+          </div>
+        </div>`).join('')
+    : '<div style="padding:16px;text-align:center;color:#555;font-size:13px;">No foods found</div>';
+}
+
+function selectLogFood(id) {
+  const f = ALL_FOODS.find(x => x.id === id);
+  if (!f) return;
+  state.selectedLogFood = f;
+  document.getElementById('log-food-name').textContent = `${f.emoji} ${f.name}`;
+  document.getElementById('log-food-macros').innerHTML = `Per serving:<br/><span style="color:#D4AF37;">${f.cal} kcal</span> · <span style="color:#FF6B35;">${f.protein}g P</span> · <span style="color:#4ECDC4;">${f.carbs}g C</span> · <span style="color:#96CEB4;">${f.fat}g F</span>`;
+  document.getElementById('log-selected-food').classList.remove('hidden');
+  document.getElementById('log-search-results').innerHTML = '';
+  document.getElementById('log-search').value = f.name;
+}
+
+function logMeal() {
+  if (!state.selectedLogFood) { toast('Search and select a food first'); return; }
+  const f = state.selectedLogFood;
+  const servings = parseFloat(document.getElementById('log-servings').value) || 1;
+  const cat = document.getElementById('log-meal-cat').value;
+  state.mealLog.push({...f, servings, cat});
+  state.calories += Math.round(f.cal * servings);
+  state.protein += Math.round(f.protein * servings);
+  state.carbs += Math.round(f.carbs * servings);
+  state.fats += Math.round(f.fat * servings);
+  state.selectedLogFood = null;
+  document.getElementById('log-selected-food').classList.add('hidden');
+  document.getElementById('log-search').value = '';
+  document.getElementById('log-servings').value = '1';
+  hideModal('log-meal-modal');
+  renderDashboard();
+  toast(`${f.name} added! 🍽️`);
+}
+
+// ─── WATER ───────────────────────────────────────────────────────────────
+function addWater(ml) {
+  state.water = Math.min(5000, state.water + ml);
+  const pct = Math.min(100, (state.water / 3000) * 100);
+  document.getElementById('water-display').textContent = state.water >= 1000
+    ? (state.water / 1000).toFixed(1) + ' L'
+    : state.water + ' ml';
+  document.getElementById('water-bar').style.width = pct + '%';
+  renderDashboard();
+  toast(`+${ml}ml water logged 💧`);
+}
+
+// ─── WEIGHT ──────────────────────────────────────────────────────────────
+function logWeight() {
+  const val = parseFloat(document.getElementById('weight-input').value);
+  const notes = document.getElementById('weight-notes').value;
+  if (!val) { toast('Enter your weight'); return; }
+  const entry = {weight: val, notes, date: new Date().toLocaleDateString('en-KE')};
+  state.weightLog.unshift(entry);
+  localStorage.setItem('gainify_weight', JSON.stringify(state.weightLog.slice(0, 30)));
+  document.getElementById('weight-input').value = '';
+  document.getElementById('weight-notes').value = '';
+  renderWeightHistory();
+  toast(`Weight ${val}kg saved! 📈`);
+}
+
+function renderWeightHistory() {
+  const el = document.getElementById('weight-history');
+  if (!state.weightLog.length) { el.innerHTML = ''; return; }
+  el.innerHTML = `<div style="font-size:13px;font-weight:700;color:#D4AF37;margin-bottom:10px;">📊 Weight History</div>` +
+    state.weightLog.slice(0,7).map((e,i) => `
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+        <div>
+          <span style="font-size:14px;font-weight:700;color:${i===0?'#D4AF37':'#fff'};">${e.weight} kg</span>
+          ${e.notes ? `<span style="font-size:11px;color:#666;margin-left:8px;">${e.notes}</span>` : ''}
+        </div>
+        <span style="font-size:12px;color:#555;">${e.date}</span>
+      </div>`).join('');
+}
+
+// ─── AI CHAT ─────────────────────────────────────────────────────────────
+let chatHistory = [];
+
+function qp(prompt) {
+  document.getElementById('chat-input').value = prompt;
+  sendMsg();
+}
+
+async function sendMsg() {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  appendMsg('user', msg);
+  chatHistory.push({role:'user', content: msg});
+
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true; btn.textContent = '⏳';
+
+  const typing = document.createElement('div');
+  typing.className = 'msg ai';
+  typing.id = 'typing-indicator';
+  typing.innerHTML = `<div class="ai-label">🤖 Gainify AI</div><div class="typing"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;
+  document.getElementById('chat-area').appendChild(typing);
+  document.getElementById('chat-area').scrollTop = 9999;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:`You are Gainify AI – a premium African fitness and nutrition coach. You help underweight users, athletes, muscle builders. You deeply know:
+- Somali foods: Bariis, Baasto, Canjeero, Malawax, Sabaayad, Hilib Ari, Suqaar, Muufo, Cambuulo, Oodkac, Camel Milk, Timir, Shaah
+- Kenyan foods: Ugali, Nyama Choma, Chapati, Githeri, Pilau, Tilapia, Sukuma Wiki, Mandazi, Omena, Matoke, Mukimo
+- International: eggs, chicken, beef, tuna, salmon, oats, peanut butter, whey, mass gainer
+- Supplements, workout programming, calorie surplus strategies
+Be warm, motivating, and specific. Use emojis naturally. If greeted in Swahili say "Habari!". Keep responses helpful and concise.`,
+        messages: chatHistory
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Sorry, something went wrong. Try again!';
+    chatHistory.push({role:'assistant', content: reply});
+    document.getElementById('typing-indicator')?.remove();
+    appendMsg('ai', reply);
+  } catch {
+    document.getElementById('typing-indicator')?.remove();
+    appendMsg('ai', '⚠️ Connection error. Please check your internet and try again.');
+  }
+
+  btn.disabled = false; btn.textContent = 'Send ➤';
+}
+
+function appendMsg(role, text) {
+  const area = document.getElementById('chat-area');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  div.innerHTML = `${role === 'ai' ? '<div class="ai-label">🤖 Gainify AI</div>' : ''}
+    <div class="bubble ${role}">${text.replace(/\n/g,'<br/>')}</div>`;
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────────────
+function toast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2600);
+}
+</script>
+</body>
+</html>
