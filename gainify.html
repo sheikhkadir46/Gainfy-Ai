@@ -1284,15 +1284,717 @@ function renderWeightHistory() {
       </div>`).join('');
 }
 
-// ─── AI CHAT ─────────────────────────────────────────────────────────────
+// ─── AI BRAIN (OFFLINE – NO API NEEDED) ──────────────────────────────────
 let chatHistory = [];
+
+const AI_BRAIN = {
+  greetings: ['habari','hello','hi','hey','salaam','salam','hujambo','mambo','niaje','assalamu'],
+  rules: [
+    // GREETINGS
+    { match: ['habari','salaam','salam','hujambo','mambo','niaje','assalamu'],
+      reply: `Habari sana! 💪🔥 Karibu Gainify AI!
+
+Mimi ni AI trainer wako wa kibinafsi — najua vyakula vya Kisomali, Kikenyan, na kimataifa, programu za gym, na mkakati wote wa kuongeza uzito na misuli!
+
+Unaweza kuniuliza kuhusu:
+🍽️ Mipango ya chakula (Somali/Kenyan/International)
+💪 Mazoezi ya gym na nyumbani
+🥤 Virutubisho kama Whey, Creatine, Mass Gainer
+📊 Kalori, protini, na macros
+⚖️ Jinsi ya kuongeza uzito haraka
+
+Niulize chochote, niko hapa! 🇸🇴🇰🇪` },
+
+    // SOMALI MEAL PLAN
+    { match: ['somali meal','somali plan','somali food','somali diet','bariis','canjeero','suqaar','hilib','camel milk','oodkac','cambuulo','sabaayad','malawax','muufo'],
+      reply: `🇸🇴 SOMALI MUSCLE-GAIN MEAL PLAN (3200 kcal)
+
+Here's a full day built on traditional Somali foods:
+
+🌅 BREAKFAST — 7:00 AM (720 kcal)
+• 2 Malawax or Canjeero with honey
+• 3 scrambled eggs fried in ghee
+• 1 cup Camel Milk or Shaah Somali
+• 5 Timir (dates) for natural energy
+
+☀️ LUNCH — 1:00 PM (950 kcal)
+• 1 large plate Bariis iyo Hilib Ari (goat rice)
+• 200g Suqaar (beef stir-fry) on the side
+• 1 cup Cambuulo (adzuki beans) for fiber
+• Fresh tomato salad
+
+🍎 AFTERNOON SNACK — 4:00 PM (400 kcal)
+• 150g Oodkac (dried beef) — nature's protein bar!
+• 1 banana + handful of peanuts
+• 1 cup Shaah Somali
+
+🌙 DINNER — 8:00 PM (880 kcal)
+• 1 bowl Baasto with beef sauce (Somali pasta)
+• 200g Hilib Ari (goat meat) grilled
+• Side of Muufo (corn bread)
+
+🥛 BEFORE BED — 10:00 PM (250 kcal)
+• 1 cup warm Camel Milk
+• 3 Timir (dates)
+
+💡 PRO TIPS:
+✅ Cook rice in bone broth for extra minerals
+✅ Camel milk is rich in insulin-like proteins — perfect for muscle recovery
+✅ Oodkac is one of the BEST natural protein snacks — 42g protein per serving!
+✅ Eat at least 3 full meals daily — no skipping!
+
+Total: ~3200 kcal | ~180g protein | ~350g carbs | ~90g fat 🔥` },
+
+    // KENYAN MEAL PLAN
+    { match: ['kenyan meal','kenyan plan','kenyan food','kenyan diet','ugali','nyama choma','chapati','githeri','pilau','tilapia','sukuma','omena','matoke','mukimo','mandazi'],
+      reply: `🇰🇪 KENYAN MUSCLE-GAIN MEAL PLAN (3000 kcal)
+
+A full day of Kenyan powerhouse foods:
+
+🌅 BREAKFAST — 7:00 AM (650 kcal)
+• 3 Mandazi with peanut butter
+• 3 boiled or scrambled eggs
+• 1 glass whole milk
+• 1 banana
+
+☀️ LUNCH — 1:00 PM (1000 kcal) ⭐ BIGGEST MEAL
+• 2 cups Ugali (maize meal — the foundation!)
+• 250g Nyama Choma (grilled beef or goat)
+• 1 cup Sukuma Wiki sautéed in oil
+• 1 cup Githeri on the side
+
+🍎 SNACK — 4:00 PM (350 kcal)
+• 2 Chapati with avocado
+• 1 cup tea with milk
+
+🏋️ PRE-WORKOUT — 5:00 PM (200 kcal)
+• 2 ripe bananas
+• Small handful groundnuts
+
+🌙 DINNER — 8:00 PM (800 kcal)
+• 1 plate Pilau (spiced rice + meat)
+• 200g Tilapia (grilled or fried)
+• 1 cup beans (Maharage)
+
+🥛 BEFORE BED (200 kcal)
+• 1 glass warm milk
+• Arrowroot (Nduma) 1–2 pieces
+
+💡 PRO TIPS:
+✅ Ugali is your #1 carb — eat it twice a day when bulking
+✅ Nyama Choma = 45g protein per serving — king of gains!
+✅ Omena is a HIDDEN GEM — 35g protein per 100g, loaded with omega-3 & calcium
+✅ Add avocado to every meal for healthy calorie boost
+
+Total: ~3000 kcal | ~170g protein | ~320g carbs | ~85g fat 💪` },
+
+    // PROTEIN NEEDS
+    { match: ['how much protein','protein need','protein per day','protein intake','daily protein','protein goal','how many protein'],
+      reply: `💪 HOW MUCH PROTEIN DO YOU NEED?
+
+The science is clear for muscle building:
+
+📊 PROTEIN TARGETS:
+• Minimum: 1.6g per kg of bodyweight
+• Optimal: 2.0–2.2g per kg ⭐ (recommended)
+• Maximum useful: 2.5g per kg
+
+📐 EXAMPLES:
+• 60kg person → 120–132g protein/day
+• 70kg person → 140–154g protein/day
+• 80kg person → 160–176g protein/day
+• 90kg person → 180–198g protein/day
+
+🍽️ TOP PROTEIN SOURCES:
+
+African Foods:
+🥩 Hilib Ari (Goat) — 38g per 200g
+🍖 Nyama Choma — 45g per 250g
+🐟 Tilapia — 42g per 200g
+🐟 Omena — 35g per 100g
+🥩 Oodkac — 42g per 150g
+🥩 Suqaar — 35g per 200g
+🫘 Cambuulo (beans) — 15g per cup
+
+International:
+🍗 Chicken breast — 46g per 200g
+🥚 Eggs — 18g per 3 eggs
+🐟 Tuna — 34g per can
+🥛 Greek Yogurt — 20g per cup
+🥤 Whey Protein — 25g per scoop
+
+⏰ TIMING MATTERS:
+• Spread protein across 4–5 meals daily
+• Always eat protein within 30–60 min after workout
+• Eat slow protein (milk, yogurt) before sleep
+
+Use Gainify's Calorie Calculator to get your exact daily target! 📊` },
+
+    // WEIGHT GAIN TIPS
+    { match: ['gain weight','skinny','underweight','bulk up','increase weight','put on weight','hard gainer','hardgainer','thin','slim'],
+      reply: `⚡ THE ULTIMATE WEIGHT GAIN GUIDE FOR SKINNY GUYS
+
+First — you're not eating enough. That's the honest truth. Here's the fix:
+
+📊 STEP 1: EAT MORE CALORIES
+• Calculate your TDEE (use Gainify's calculator)
+• Add 400–600 kcal above your TDEE daily
+• Track every meal — most skinny guys underestimate intake
+
+🍽️ STEP 2: CALORIE-DENSE AFRICAN FOODS
+• Bariis + Hilib Ari = 700+ kcal per plate
+• Ugali + Nyama Choma = 680+ kcal
+• Sabaayad + eggs = 500+ kcal breakfast
+• Peanut butter on Chapati = easy 400 kcal snack
+
+💪 STEP 3: EAT 5–6 TIMES A DAY
+• Never go more than 3 hours without eating
+• Set alarms if you forget to eat
+• Never skip breakfast — it's your most important meal
+
+🏋️ STEP 4: LIFT HEAVY WEIGHTS
+• Squats, Deadlifts, Bench Press — these trigger the most muscle growth
+• Train 3–4x per week (Push/Pull/Legs)
+• Progressive overload — add weight every week
+
+🥤 STEP 5: SUPPLEMENTS THAT WORK
+1. Mass Gainer — 1200 kcal per shake (hardgainer's best friend)
+2. Creatine — 5g daily, adds muscle volume & strength
+3. Whey Protein — 50g protein, take post-workout
+4. Whole milk — drink 2 glasses daily (GOMAD method)
+
+😴 STEP 6: SLEEP 8 HOURS
+• 70% of muscle growth happens during sleep
+• No sleep = wasted workouts and meals
+
+📅 REALISTIC TIMELINE:
+• Month 1: 1–2 kg gained (mostly water + glycogen)
+• Month 2–3: 0.5–1 kg lean muscle per month
+• 6 months: Visible, significant transformation 💪
+
+You CAN do this. Consistency beats genetics every time! 🔥` },
+
+    // SUPPLEMENTS
+    { match: ['supplement','whey','creatine','mass gainer','pre workout','omega','multivitamin','protein powder','bcaa'],
+      reply: `💊 SUPPLEMENTS GUIDE FOR MUSCLE GAIN
+
+Here's exactly what to take and when:
+
+🥇 TIER 1 — MUST HAVES:
+
+1️⃣ CREATINE MONOHYDRATE ⭐ BEST BANG FOR BUCK
+• Dose: 5g daily (any time — consistency matters)
+• Loading: 20g/day for first 5 days (optional)
+• Benefit: +10–15% more strength, bigger muscles, better recovery
+• Cost: Very affordable — KSh 1,500–2,500/month
+• Side effects: None (drink extra water)
+
+2️⃣ WHEY PROTEIN
+• Dose: 1–2 scoops (30–60g) post-workout
+• Benefit: 25g fast protein per scoop, rebuilds muscle fast
+• Best time: Within 30 minutes after training
+• Mix with: Whole milk for extra 280 calories!
+
+3️⃣ MASS GAINER (for underweight/hardgainers)
+• Dose: 2–3 scoops with milk (500–750ml)
+• Calories: 600–1200 kcal per shake!
+• Best time: Between meals or post-workout
+• Warning: Only use if eating enough real food first
+
+🥈 TIER 2 — HIGHLY RECOMMENDED:
+
+4️⃣ OMEGA-3 FISH OIL
+• Dose: 2–3 capsules with any meal
+• Benefit: Reduces inflammation, protects joints, improves recovery
+
+5️⃣ MULTIVITAMINS
+• Dose: 1 tablet with breakfast daily
+• Benefit: Fills gaps especially if diet is limited
+• Important for: Vitamin D, Zinc, Magnesium — all critical for muscle growth
+
+🥉 TIER 3 — OPTIONAL:
+
+6️⃣ PRE-WORKOUT
+• Use only 2–3x per week max
+• Avoid after 4pm (disrupts sleep)
+• Get strong first, then add pre-workout
+
+💡 PRIORITY ORDER (if on budget):
+Creatine → Whey Protein → Mass Gainer → Multivitamins → Omega-3
+
+Real food always comes first — supplements are just the top-up! 🍽️` },
+
+    // WORKOUT PLAN
+    { match: ['workout plan','gym plan','gym program','exercise plan','beginner workout','training plan','gym routine','exercise routine','push pull','ppl'],
+      reply: `🏋️ GAINIFY MUSCLE-BUILDING PROGRAM (Beginner–Intermediate)
+
+PUSH / PULL / LEGS SPLIT — 3–6 days/week
+
+📅 MONDAY — PUSH (Chest, Shoulders, Triceps)
+• Bench Press: 4 sets × 8–10 reps
+• Overhead Press: 3 sets × 10–12 reps
+• Incline Dumbbell Press: 3 sets × 10–12 reps
+• Lateral Raises: 3 sets × 15 reps
+• Tricep Dips or Pushdowns: 3 sets × 12–15 reps
+• Push-ups (finisher): 2 sets × max reps
+
+📅 TUESDAY — PULL (Back, Biceps)
+• Pull-ups or Lat Pulldown: 4 sets × 8–12 reps
+• Barbell Rows: 4 sets × 10–12 reps
+• Seated Cable Rows: 3 sets × 12 reps
+• Face Pulls: 3 sets × 15–20 reps
+• Bicep Curls: 3 sets × 12–15 reps
+
+📅 WEDNESDAY — LEGS (Quads, Glutes, Hamstrings)
+• Squats: 4 sets × 10–12 reps ⭐ KING EXERCISE
+• Romanian Deadlifts: 3 sets × 10–12 reps
+• Leg Press: 3 sets × 12–15 reps
+• Lunges: 3 sets × 12 each leg
+• Calf Raises: 4 sets × 20 reps
+
+📅 THURSDAY — REST & EAT BIG 😴🍽️
+
+📅 FRIDAY — PUSH (Heavy)
+📅 SATURDAY — PULL (Volume)
+📅 SUNDAY — Legs Light / Active Recovery
+
+⚡ KEY RULES FOR MUSCLE GROWTH:
+✅ Progressive overload — add weight or reps every week
+✅ Rest 2–3 minutes between heavy sets
+✅ Eat your target calories EVERY DAY — not just gym days
+✅ Sleep 8 hours — growth happens during sleep
+✅ Stay consistent for 3+ months before judging results
+
+🔑 THE MOST IMPORTANT EXERCISES:
+1. Squats — builds entire lower body + releases testosterone
+2. Deadlifts — full body strength king
+3. Bench Press — chest and pushing strength
+4. Pull-ups — best back builder
+5. Overhead Press — shoulder mass
+
+You've got this! 💪 Consistency beats everything!` },
+
+    // CALORIE SURPLUS
+    { match: ['calorie surplus','calorie deficit','how many calories','how much to eat','calorie target','tdee','maintenance calories','bulking calories'],
+      reply: `🔥 CALORIE GUIDE FOR MUSCLE GAIN
+
+📐 THE FORMULA:
+1. Calculate BMR (energy at rest)
+2. Multiply by activity level = TDEE (maintenance)
+3. Add surplus for muscle gain
+
+🧮 QUICK BMR FORMULA (Mifflin-St Jeor):
+Men: 88.4 + (13.4 × weight kg) + (4.8 × height cm) − (5.7 × age)
+Women: 447.6 + (9.2 × weight kg) + (3.1 × height cm) − (4.3 × age)
+
+🏃 ACTIVITY MULTIPLIERS:
+• Sedentary (desk job): BMR × 1.2
+• Light (1–2x/week): BMR × 1.375
+• Moderate (3–5x/week): BMR × 1.55 ← most gym-goers
+• Active (6–7x/week): BMR × 1.725
+• Very Active (2x/day): BMR × 1.9
+
+📊 SURPLUS TARGETS:
+• Lean bulk (+200 kcal): Slow gain, minimal fat
+• Muscle build (+400 kcal) ⭐: Best for most people
+• Aggressive bulk (+600 kcal): Fast gain, more fat possible
+
+📋 EXAMPLE (70kg, 175cm, 22yr male, moderate activity):
+• BMR = 1,789 kcal
+• TDEE = 1,789 × 1.55 = 2,773 kcal
+• Muscle build target = 2,773 + 400 = 3,173 kcal
+
+🍽️ HOW TO HIT 3,000+ KCAL WITH AFRICAN FOODS:
+• Breakfast: Ugali + 3 eggs + milk = 700 kcal
+• Lunch: Bariis + Hilib Ari = 800 kcal
+• Snack: Sabaayad + peanut butter = 500 kcal
+• Dinner: Pilau + Tilapia = 700 kcal
+• Snack: Mass Gainer shake = 600 kcal
+Total: 3,300 kcal ✅
+
+Use Gainify's Calorie Calculator (🔥 tab) for your exact numbers! 📊` },
+
+    // BMI
+    { match: ['bmi','body mass','underweight category','normal weight','overweight'],
+      reply: `📊 BMI — BODY MASS INDEX EXPLAINED
+
+BMI = Weight (kg) ÷ Height (m)²
+
+📏 CATEGORIES:
+• Below 18.5 → Underweight ⚠️ (need calorie surplus)
+• 18.5 – 24.9 → Normal Weight ✅
+• 25.0 – 29.9 → Overweight 🟡
+• 30.0 and above → Obese 🔴
+
+🧮 QUICK EXAMPLE:
+Person: 60kg, 175cm tall
+BMI = 60 ÷ (1.75 × 1.75) = 60 ÷ 3.06 = 19.6 → Normal ✅
+
+⚠️ IF YOU'RE UNDERWEIGHT (BMI < 18.5):
+• You need 500–750 kcal surplus daily
+• Focus on calorie-dense African foods
+• Train with weights to build muscle, not just fat
+• Gain 0.5–1 kg per week (healthy rate)
+
+💡 BMI LIMITATIONS:
+BMI doesn't measure muscle vs fat. A muscular athlete can have high BMI and still be very healthy. Use it as a starting guide, not the final word.
+
+Use Gainify's BMI Calculator (📊 tab) to calculate yours and get personalised advice! 💪` },
+
+    // WATER / HYDRATION
+    { match: ['water','hydration','how much water','drink water','dehydrated'],
+      reply: `💧 HYDRATION FOR MUSCLE GROWTH
+
+Water is underrated for gains — dehydration kills performance!
+
+📊 DAILY WATER TARGETS:
+• Minimum: 2.5 litres/day
+• Active athletes: 3–4 litres/day
+• Hot climate (Kenya/Somalia): Add 0.5–1L extra
+
+⏰ HYDRATION TIMING:
+• Wake up: 500ml immediately (you wake up dehydrated)
+• Before each meal: 250ml
+• During workout: 500–750ml per hour
+• After workout: 500ml within 30 minutes
+• Before bed: 250ml
+
+🚨 SIGNS YOU'RE DEHYDRATED:
+• Dark yellow urine (should be pale yellow)
+• Headaches during workouts
+• Fatigue and low energy
+• Poor pump at the gym
+• Slower recovery
+
+🇸🇴🇰🇪 AFRICAN HYDRATION TIPS:
+• Shaah Somali (spiced tea) counts toward hydration
+• Camel milk is naturally hydrating
+• Coconut water (madafu) is excellent post-workout
+• Fresh mango/orange juice adds hydration + vitamins
+
+💡 QUICK TRICK: Check your urine color. Clear to light yellow = well hydrated. Dark yellow = drink more now!
+
+Log your water intake using the 💧 button at the top! 🔝` },
+
+    // SLEEP & RECOVERY
+    { match: ['sleep','recovery','rest day','muscle recovery','soreness','rest','overtraining'],
+      reply: `😴 SLEEP & RECOVERY — THE FORGOTTEN MUSCLE BUILDER
+
+Here's the truth: You don't grow in the gym. You grow while you SLEEP.
+
+🧬 WHAT HAPPENS DURING SLEEP:
+• Growth hormone (GH) peaks 1–2 hours after falling asleep
+• Muscle protein synthesis is highest during deep sleep
+• Cortisol (muscle-destroying hormone) drops during sleep
+• Glycogen stores get replenished
+• Neural connections for movement get strengthened
+
+📊 SLEEP TARGETS:
+• Minimum: 7 hours
+• Optimal: 8–9 hours ⭐
+• Athletes in heavy training: 9–10 hours
+
+🌙 SLEEP OPTIMIZATION TIPS:
+✅ Sleep at the same time every night
+✅ Dark, cool room (18–20°C ideal)
+✅ No phone screens 30 min before bed
+✅ Eat protein before bed (casein/milk keeps muscles fed)
+✅ Camel milk or warm milk before bed — works like a natural sleep aid
+
+🍽️ BEST BEFORE-BED SNACKS:
+• 1 cup Greek yogurt + banana (casein + carbs)
+• 1 cup warm Camel Milk + Timir (dates)
+• Cottage cheese + peanut butter
+• Warm milk + honey
+
+📅 REST DAY NUTRITION:
+• Eat the same protein (still rebuilding muscle)
+• Reduce carbs slightly (less energy needed)
+• Increase vegetables and water
+• Light walk or stretching is fine
+
+Recovery is not weakness — it's strategy! 💪` },
+
+    // EGGS
+    { match: ['egg','eggs','mayai'],
+      reply: `🥚 EGGS — THE PERFECT MUSCLE FOOD
+
+Eggs are one of the single best foods for muscle building. Here's why:
+
+📊 NUTRITION (3 large eggs):
+• Calories: 210 kcal
+• Protein: 18g (complete — all 9 essential amino acids!)
+• Fat: 15g (healthy cholesterol for testosterone)
+• Vitamins: A, D, B12, B2, Choline
+• Minerals: Zinc, Phosphorus, Selenium
+
+💪 MUSCLE BENEFITS:
+✅ Leucine content triggers muscle protein synthesis (mTOR pathway)
+✅ Whole eggs = 2× better for muscle building than egg whites alone (studies show!)
+✅ Cholesterol in yolk supports testosterone production
+✅ Choline supports brain function and nerve signals to muscles
+
+🍳 BEST WAYS TO EAT:
+• Scrambled with ghee → most calories
+• Fried in coconut oil → crispy and calorie-dense
+• Boiled × 6 → easy meal prep, take anywhere
+• Omelette with vegetables → balanced meal
+• Added to Canjeero or Malawax → perfect Somali combo!
+
+⏰ BEST TIMES:
+• Breakfast (always!)
+• Post-workout
+• Anytime you need fast protein
+
+💰 COST-EFFECTIVENESS:
+Eggs give you more protein per shilling than almost anything. Eat 4–6 daily if you can!
+
+Fun fact: Bodybuilders in the 1970s ate 30+ eggs per day. You don't need that many — 4–6 is perfect! 🔥` },
+
+    // AVOCADO
+    { match: ['avocado','avocados','parachichi'],
+      reply: `🥑 AVOCADO — AFRICA'S CALORIE KING
+
+Kenya grows some of the best avocados in the world — and they're PERFECT for muscle gain!
+
+📊 NUTRITION (1 medium avocado, 150g):
+• Calories: 240 kcal
+• Healthy fats: 22g (monounsaturated — the BEST kind)
+• Carbs: 13g
+• Fiber: 10g
+• Protein: 3g
+• Vitamins: K, E, C, B5, B6, Folate
+• Minerals: Potassium (more than bananas!), Magnesium
+
+💪 MUSCLE-GAIN BENEFITS:
+✅ Monounsaturated fats support testosterone production
+✅ Vitamin E is a powerful antioxidant for muscle recovery
+✅ High calorie density — easy 240 kcal in one fruit!
+✅ Potassium prevents muscle cramps during training
+✅ Anti-inflammatory — reduces muscle soreness
+✅ Helps absorb fat-soluble vitamins (A, D, E, K) from other foods
+
+🍽️ HOW TO EAT:
+• Slice on toast or Chapati + eggs = 500 kcal breakfast
+• Blend into smoothie with banana + milk
+• Add to any meal as a side
+• Guacamole with bread = easy 400 kcal snack
+
+💡 GAINIFY TIP:
+Add half an avocado to every main meal. That's an easy 360 extra calories per day from one ingredient alone!` },
+
+    // PEANUT BUTTER
+    { match: ['peanut butter','peanut','groundnut','simsim','njugu'],
+      reply: `🥜 PEANUT BUTTER — THE HARDGAINER'S SECRET WEAPON
+
+4 tablespoons = 380 calories. It's one of the easiest calorie-dense foods you can eat!
+
+📊 NUTRITION (4 tbsp / 64g):
+• Calories: 380 kcal
+• Protein: 16g
+• Healthy fats: 32g
+• Carbs: 14g
+• Fiber: 4g
+• Vitamins: E, B3 (Niacin), B6
+• Minerals: Magnesium, Phosphorus, Zinc, Potassium
+
+💪 MUSCLE BENEFITS:
+✅ High calorie density — easy way to hit surplus
+✅ Monounsaturated fats support testosterone
+✅ Contains arginine — improves blood flow and muscle pump
+✅ Protein + healthy fats = slow digestion, keeps you full
+✅ Magnesium supports over 300 enzymatic reactions including muscle contraction
+
+🍽️ HOW TO EAT FOR MAXIMUM GAINS:
+• Spread thick on Chapati or Mandazi (600 kcal combo!)
+• Blend into mass gainer smoothie
+• Eat 2 tbsp before bed = slow-release energy overnight
+• Add to oatmeal or porridge
+• Mix with Canjeero for a calorie-packed Somali meal
+
+⏰ BEST TIMES:
+• Morning: With bread for calorie-dense breakfast
+• Snack: Between meals with a banana
+• Pre-bed: Slow-digesting protein and fat while you sleep
+
+💡 GAINIFY TIP:
+Natural peanut butter (just peanuts, no sugar) is best. If you can't find it, regular works fine. Even Kenyan groundnuts crushed into paste works perfectly! 🇰🇪` },
+
+    // UGALI SPECIFIC
+    { match: ['ugali','posho','sima'],
+      reply: `🍽️ UGALI — THE KENYAN MUSCLE-BUILDER
+
+Ugali is not just a staple — it's one of the most effective bulking carbs in East Africa!
+
+📊 NUTRITION (2 cups / 300g cooked):
+• Calories: 360 kcal
+• Protein: 8g
+• Carbs: 78g (complex — slow release!)
+• Fat: 1g
+• Fiber: 3g
+• Vitamins: B3 (Niacin), B1 (Thiamine)
+• Minerals: Iron, Magnesium, Phosphorus
+
+💪 MUSCLE BENEFITS:
+✅ High carbs fuel your workouts completely
+✅ Complex carbs = sustained energy for 3–4 hours
+✅ Easy to eat in large quantities (no strong flavor)
+✅ Pairs perfectly with high-protein sides (Nyama Choma, Tilapia, eggs)
+✅ Iron supports oxygen delivery to muscles during training
+
+🏆 BEST COMBINATIONS FOR GAINS:
+• Ugali + Nyama Choma = 720 kcal, 53g protein 🔥
+• Ugali + Tilapia + Sukuma Wiki = 605 kcal, 50g protein
+• Ugali + 3 eggs + Sukuma = 450 kcal, 32g protein (great breakfast!)
+• Ugali + beans (Maharage) + beef = 750 kcal, 55g protein
+
+⏰ BEST TIMES:
+• Lunch (biggest meal of the day)
+• Post-workout (replenishes muscle glycogen)
+• As a base for any protein source
+
+💡 GAINIFY PRO TIP:
+Make your Ugali slightly thicker than usual when bulking — more calories per bowl. Add a drizzle of cooking oil or ghee for extra 100–200 kcal easily.
+
+Ugali is your secret weapon — don't underestimate it! 🇰🇪💪` },
+
+    // MOTIVATION
+    { match: ['motivat','inspire','give up','discouraged','slow results','not working','no results','frustrated'],
+      reply: `🔥 GAINIFY MOTIVATION — FOR THE DAYS YOU WANT TO QUIT
+
+Listen. Every champion felt exactly what you're feeling right now.
+
+📊 THE TRUTH ABOUT MUSCLE BUILDING:
+• Month 1: Your body is adapting (neurological changes, not visible)
+• Month 2: Strength increases noticeably
+• Month 3: First visible muscle changes
+• Month 4–6: Real transformation begins
+• Month 6–12: People start commenting on your body
+
+Most people quit at month 2. That's exactly when it starts working.
+
+💪 WHAT CHAMPIONS DO DIFFERENTLY:
+✅ They train when they don't feel like it
+✅ They eat even when not hungry
+✅ They track progress instead of guessing
+✅ They compare themselves to last month — not others
+✅ They trust the process when they can't see results
+
+🇸🇴🇰🇪 AFRICAN CHAMPION MINDSET:
+In Kenya, the greatest marathon runners in the world train in Iten, altitude 2,400m. They don't have fancy gyms. They have discipline, food, and consistency.
+
+You have Gainify AI, a full food database, workout plans, and all the knowledge you need.
+
+The only question is: Are you willing to be consistent?
+
+📸 TRACK YOUR PROGRESS:
+• Take a photo every 4 weeks
+• Measure your arms, chest, waist
+• Log your weights in the gym
+• Track your calories daily
+
+Progress is always happening even when you can't see it. 
+
+Keep going. The body you want is on the other side of consistency. 💪🔥
+
+"Pole pole ndio mwendo" — Slowly slowly is the way. 🇰🇪` },
+
+    // DEFAULT FALLBACK
+    { match: [],
+      reply: null }
+  ]
+};
+
+function getAIReply(msg) {
+  const lower = msg.toLowerCase();
+  for (const rule of AI_BRAIN.rules) {
+    if (rule.match.length === 0) continue;
+    if (rule.match.some(kw => lower.includes(kw))) {
+      return rule.reply;
+    }
+  }
+  // Smart fallback based on keywords
+  if (lower.includes('meal') || lower.includes('eat') || lower.includes('food') || lower.includes('diet') || lower.includes('chakula')) {
+    return `🍽️ GENERAL NUTRITION TIPS FOR MUSCLE GAIN
+
+To build muscle and gain healthy weight, focus on these principles:
+
+1️⃣ EAT IN A CALORIE SURPLUS
+Add 400–600 kcal above your daily maintenance. Use Gainify's Calorie Calculator (🔥 tab) for your exact number.
+
+2️⃣ HIT YOUR PROTEIN TARGET
+Aim for 2.0–2.2g of protein per kg of bodyweight every single day.
+
+3️⃣ AFRICAN FOOD POWERHOUSES:
+🇸🇴 Somali: Hilib Ari, Bariis, Oodkac, Cambuulo, Camel Milk
+🇰🇪 Kenyan: Nyama Choma, Ugali, Tilapia, Omena, Pilau
+🌍 International: Eggs, Chicken, Peanut Butter, Oats, Whole Milk
+
+4️⃣ EAT 5 TIMES A DAY
+Never go more than 3 hours without eating. Small frequent meals = consistent muscle-building environment.
+
+5️⃣ NEVER SKIP BREAKFAST
+Your morning meal sets your calorie intake for the whole day!
+
+Would you like a specific Somali, Kenyan, or International meal plan? Just ask! 💪`;
+  }
+  if (lower.includes('gym') || lower.includes('exercise') || lower.includes('train') || lower.includes('workout') || lower.includes('mazoezi')) {
+    return `🏋️ GYM & TRAINING GUIDE
+
+For muscle gain, the MOST important exercises are:
+
+🔑 THE BIG 5 COMPOUND MOVEMENTS:
+1. Squats — builds legs + releases growth hormone
+2. Deadlifts — full body strength, king of exercises
+3. Bench Press — chest, shoulders, triceps
+4. Pull-ups/Rows — back and biceps
+5. Overhead Press — shoulder mass and strength
+
+📅 RECOMMENDED SPLIT:
+• Monday: Push (Chest, Shoulders, Triceps)
+• Tuesday: Pull (Back, Biceps)
+• Wednesday: Legs (Squads, Deadlifts)
+• Thursday: Rest & eat big
+• Friday–Saturday: Repeat Push/Pull
+• Sunday: Active recovery
+
+⚡ KEY RULES:
+✅ Progressive overload — increase weight or reps every week
+✅ Rest 2–3 min between heavy sets
+✅ Train with intensity — not just going through motions
+✅ Eat your calories on REST DAYS too — muscle grows when resting
+
+Check out the 🏋️ Train tab for detailed exercise instructions! 💪`;
+  }
+  // True fallback
+  return `🤖 Great question! Here's what I know about that:
+
+As your Gainify AI trainer, I specialise in:
+
+🇸🇴 Somali nutrition (Bariis, Hilib Ari, Canjeero, Oodkac, Camel Milk...)
+🇰🇪 Kenyan nutrition (Ugali, Nyama Choma, Tilapia, Omena, Pilau...)
+🌍 International bodybuilding foods (Eggs, Chicken, Whey, Peanut Butter...)
+💪 Muscle-building workout programs
+📊 Calorie and macro calculations
+💊 Supplements (Whey, Creatine, Mass Gainer, Omega-3...)
+⚖️ Weight gain strategies for underweight users
+
+Try asking me:
+• "Give me a Somali meal plan"
+• "How much protein do I need?"
+• "Best supplements for hardgainers"
+• "Create a beginner gym program"
+• "How do I gain weight fast?"
+
+I'm here to help you build your best body! 💪🔥`;
+}
 
 function qp(prompt) {
   document.getElementById('chat-input').value = prompt;
   sendMsg();
 }
 
-async function sendMsg() {
+function sendMsg() {
   const input = document.getElementById('chat-input');
   const msg = input.value.trim();
   if (!msg) return;
@@ -1304,6 +2006,7 @@ async function sendMsg() {
   const btn = document.getElementById('send-btn');
   btn.disabled = true; btn.textContent = '⏳';
 
+  // Show typing animation
   const typing = document.createElement('div');
   typing.className = 'msg ai';
   typing.id = 'typing-indicator';
@@ -1311,33 +2014,14 @@ async function sendMsg() {
   document.getElementById('chat-area').appendChild(typing);
   document.getElementById('chat-area').scrollTop = 9999;
 
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system:`You are Gainify AI – a premium African fitness and nutrition coach. You help underweight users, athletes, muscle builders. You deeply know:
-- Somali foods: Bariis, Baasto, Canjeero, Malawax, Sabaayad, Hilib Ari, Suqaar, Muufo, Cambuulo, Oodkac, Camel Milk, Timir, Shaah
-- Kenyan foods: Ugali, Nyama Choma, Chapati, Githeri, Pilau, Tilapia, Sukuma Wiki, Mandazi, Omena, Matoke, Mukimo
-- International: eggs, chicken, beef, tuna, salmon, oats, peanut butter, whey, mass gainer
-- Supplements, workout programming, calorie surplus strategies
-Be warm, motivating, and specific. Use emojis naturally. If greeted in Swahili say "Habari!". Keep responses helpful and concise.`,
-        messages: chatHistory
-      })
-    });
-    const data = await res.json();
-    const reply = data.content?.[0]?.text || 'Sorry, something went wrong. Try again!';
+  // Simulate thinking delay for realism
+  setTimeout(() => {
+    document.getElementById('typing-indicator')?.remove();
+    const reply = getAIReply(msg);
     chatHistory.push({role:'assistant', content: reply});
-    document.getElementById('typing-indicator')?.remove();
     appendMsg('ai', reply);
-  } catch {
-    document.getElementById('typing-indicator')?.remove();
-    appendMsg('ai', '⚠️ Connection error. Please check your internet and try again.');
-  }
-
-  btn.disabled = false; btn.textContent = 'Send ➤';
+    btn.disabled = false; btn.textContent = 'Send ➤';
+  }, 900 + Math.random() * 600);
 }
 
 function appendMsg(role, text) {
