@@ -1,2 +1,2 @@
 # Gainfy-Ai
-Gainify AI** is a production-ready, fully offline-capable fitness and nutrition web app designed specifically for
+💪 AI-powered fitness & nutrition app for muscle builders — Somali 🇸🇴 & Kenyan 🇰🇪 food database, calorie calculator, BMI tracker, workout programs & offline AI trainer. No install needed — just open the HTML file.
